@@ -9,6 +9,9 @@ $hecate-typography: mat-typography-config(
 
 @include mat-core($hecate-typography);
 
+$hecate-dark-primary: #40826d;
+$hecate-light-primary: #009698;
+
 $hecate-dark: (
     50 : #e8f0ed,
     100 : #c6dad3,
@@ -83,13 +86,22 @@ $hecate-app-theme-dark: mat-dark-theme(mat-palette($hecate-dark), $hecate-app-ac
 
 .light {
   @include angular-material-theme($hecate-app-theme-light);
+
+  .hecate-primary {
+    color: white;
+    background-color: $hecate-light-primary;
+  }
 }
 
 .dark {
   @include angular-material-theme($hecate-app-theme-dark);
   
-  .flex-container {
+  .content {
     background-color: #303030;
   }
-}
 
+  .hecate-primary {
+    color: white;
+    background-color: $hecate-dark-primary;
+  }
+}

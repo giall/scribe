@@ -8,13 +8,9 @@ import { ThemeService, Theme } from './services/theme/theme.service';
 })
 export class AppComponent {
   title = 'hecate-app';
-  theme: Theme;
+  classes: string;
 
-  constructor(private themeService: ThemeService) {
-    themeService.theme.subscribe((theme) => this.theme = theme);
-  }
-
-  toggleTheme() {
-    this.themeService.toggle();
+  constructor(themeService: ThemeService) {
+    themeService.theme.subscribe((theme) => this.classes = `wrapper mat-typography ${theme}`);
   }
 }
