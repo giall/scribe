@@ -1,9 +1,5 @@
 import { Component } from '@angular/core';
-
-enum Style {
-  Light = 'hecate-light-theme',
-  Dark = 'hecate-dark-theme'
-}
+import { ThemeService, Theme } from './theme.service';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +8,13 @@ enum Style {
 })
 export class AppComponent {
   title = 'hecate-app';
-  style = Style.Light;
+  theme: Theme;
+
+  constructor(private themeService: ThemeService) {
+    themeService.theme.subscribe((theme) => this.theme = theme);
+  }
 
   toggleTheme() {
-    this.style = (this.style === Style.Light) ? Style.Dark : Style.Light;
+    this.themeService.toggle();
   }
 }

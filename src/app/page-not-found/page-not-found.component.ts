@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThemeService } from '../theme.service';
 
 @Component({
   selector: 'app-page-not-found',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  constructor() { }
+  image: string;
+
+  constructor(private themeService: ThemeService) { }
 
   ngOnInit() {
+    this.themeService.theme.subscribe((theme) => this.image = `assets/img/page_not_found_${theme}.svg`);
   }
 
 }

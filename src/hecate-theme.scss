@@ -81,11 +81,11 @@ $hecate-app-warn: mat-palette($mat-red);
 $hecate-app-theme-light: mat-light-theme(mat-palette($hecate-light), $hecate-app-accent, $hecate-app-warn);
 $hecate-app-theme-dark: mat-dark-theme(mat-palette($hecate-dark), $hecate-app-accent, $hecate-app-warn);
 
-.hecate-light-theme {
+.light {
   @include angular-material-theme($hecate-app-theme-light);
 }
 
-.hecate-dark-theme {
+.dark {
   @include angular-material-theme($hecate-app-theme-dark);
 }
 
