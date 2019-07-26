@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { LogService } from './log.service';
 
 export enum Theme {
   Light = 'light',
@@ -14,14 +15,14 @@ export class ThemeService {
   theme: BehaviorSubject<Theme>;
   current: Theme;
 
-  constructor() {
+  constructor(private logger: LogService) {
     this.current = Theme.Light;
     this.theme = new BehaviorSubject(this.current);
   }
 
   toggle() {
     this.current = (this.current === Theme.Light) ? Theme.Dark : Theme.Light;
-    console.log(`Changing theme to ${this.current}`);
+    this.logger.info(`Changing theme to ${this.current}`);
     this.theme.next(this.current);
   }
 }
