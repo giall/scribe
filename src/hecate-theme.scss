@@ -1,0 +1,86 @@
+
+@import '~@angular/material/theming';
+
+$hecate-typography: mat-typography-config(
+  $font-family: 'Lato, sans-serif',
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500)
+);
+
+@include mat-core($hecate-typography);
+
+$hecate: (
+    50 : #e8f0ed,
+    100 : #c6dad3,
+    200 : #a0c1b6,
+    300 : #79a899,
+    400 : #5d9583,
+    500 : #40826d,
+    600 : #3a7a65,
+    700 : #326f5a,
+    800 : #2a6550,
+    900 : #1c523e,
+    A100 : #92ffd3,
+    A200 : #5fffbf,
+    A400 : #2cffab,
+    A700 : #13ffa0,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$hecate-generic: (
+    50 : #e0f2f3,
+    100 : #b3e0e0,
+    200 : #80cbcc,
+    300 : #4db6b7,
+    400 : #26a6a7,
+    500 : #009698,
+    600 : #008e90,
+    700 : #008385,
+    800 : #00797b,
+    900 : #00686a,
+    A100 : #99fdff,
+    A200 : #66fcff,
+    A400 : #33faff,
+    A700 : #1afaff,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #ffffff,
+        500 : #ffffff,
+        600 : #ffffff,
+        700 : #ffffff,
+        800 : #ffffff,
+        900 : #ffffff,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+$hecate-app-primary: mat-palette($hecate);
+$hecate-app-accent: mat-palette($mat-pink, A200, A100, A400);
+
+$hecate-app-warn: mat-palette($mat-red);
+
+$hecate-app-theme: mat-light-theme($hecate-app-primary, $hecate-app-accent, $hecate-app-warn);
+
+@include angular-material-theme($hecate-app-theme);
+
