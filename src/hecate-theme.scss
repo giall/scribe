@@ -9,7 +9,7 @@ $hecate-typography: mat-typography-config(
 
 @include mat-core($hecate-typography);
 
-$hecate: (
+$hecate-dark: (
     50 : #e8f0ed,
     100 : #c6dad3,
     200 : #a0c1b6,
@@ -42,7 +42,7 @@ $hecate: (
     )
 );
 
-$hecate-generic: (
+$hecate-light: (
     50 : #e0f2f3,
     100 : #b3e0e0,
     200 : #80cbcc,
@@ -75,12 +75,17 @@ $hecate-generic: (
     )
 );
 
-$hecate-app-primary: mat-palette($hecate);
 $hecate-app-accent: mat-palette($mat-pink, A200, A100, A400);
-
 $hecate-app-warn: mat-palette($mat-red);
 
-$hecate-app-theme: mat-light-theme($hecate-app-primary, $hecate-app-accent, $hecate-app-warn);
+$hecate-app-theme-light: mat-light-theme(mat-palette($hecate-light), $hecate-app-accent, $hecate-app-warn);
+$hecate-app-theme-dark: mat-dark-theme(mat-palette($hecate-dark), $hecate-app-accent, $hecate-app-warn);
 
-@include angular-material-theme($hecate-app-theme);
+.hecate-light-theme {
+  @include angular-material-theme($hecate-app-theme-light);
+}
+
+.hecate-dark-theme {
+  @include angular-material-theme($hecate-app-theme-dark);
+}
 
