@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThemeService } from '../theme.service';
+import { ThemeService } from '../../services/theme/theme.service';
 
 @Component({
   selector: 'app-page-not-found',
