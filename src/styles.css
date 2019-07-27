@@ -5,3 +5,7 @@ html, body {
 body {
   margin: 0;
 }
+
+mat-card {
+  margin: 8px;
+}

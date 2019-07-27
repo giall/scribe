@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { getMinMaxValidators, getLengthValidationError } from 'src/app/utils/validation.util';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   form = new FormGroup({
+    username: new FormControl(
+      '',
+      [Validators.required, ...getMinMaxValidators('username')]
+    ),
     email: new FormControl(
       '',
       [Validators.required, Validators.email]

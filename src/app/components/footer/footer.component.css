@@ -1,5 +1,17 @@
 footer {
+  display: flex;
   padding: 20px;
-  text-align: center;
   font-size: 0.9em;
+}
+
+.toolbar-icon {
+  padding: 0 16px;
+}
+
+.toolbar-spacer {
+  flex: 1 1 auto;
+}
+
+.copyright {
+  padding: 8px 0;
 }

@@ -1,0 +1,26 @@
+<mat-card>
+  <div class="form-card form-container">
+    <h1>Register</h1>
+    <form class="form-container" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <mat-form-field>
+        <input matInput placeholder="Username" type="text" formControlName="username" required>
+        <mat-error>{{getLengthValidationError('username')}}</mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <input matInput placeholder="Email" type="email" formControlName="email" required>
+        <mat-error>Please enter a valid email address</mat-error>
+      </mat-form-field>
+      <br />
+
+      <mat-form-field>
+        <input matInput placeholder="Password" type="password" minlength="8" maxlength="20" formControlName="password"
+          required>
+        <mat-error>{{getLengthValidationError('password')}}</mat-error>
+      </mat-form-field>
+    </form>
+    <br />
+    <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid">REGISTER</button>
+  </div>
+</mat-card>

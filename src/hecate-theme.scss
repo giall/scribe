@@ -97,6 +97,7 @@ $hecate-app-theme-dark: mat-dark-theme(mat-palette($hecate-dark), $hecate-app-ac
   @include angular-material-theme($hecate-app-theme-dark);
   
   .content {
+    color: white;
     background-color: #303030;
   }
 
