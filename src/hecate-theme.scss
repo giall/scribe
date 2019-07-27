@@ -84,9 +84,9 @@ $hecate-app-warn: mat-palette($mat-red);
 $hecate-app-theme-light: mat-light-theme(mat-palette($hecate-light), $hecate-app-accent, $hecate-app-warn);
 $hecate-app-theme-dark: mat-dark-theme(mat-palette($hecate-dark), $hecate-app-accent, $hecate-app-warn);
 
-.light {
-  @include angular-material-theme($hecate-app-theme-light);
+@include angular-material-theme($hecate-app-theme-light);
 
+.light {
   .hecate-primary {
     color: white;
     background-color: $hecate-light-primary;

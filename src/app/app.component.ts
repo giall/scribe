@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThemeService, Theme } from './services/theme/theme.service';
+import { ConfigStore, Theme } from './stores/config/config.store';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +10,7 @@ export class AppComponent {
   title = 'hecate-app';
   classes: string;
 
-  constructor(themeService: ThemeService) {
-    themeService.theme.subscribe((theme) => this.classes = `wrapper mat-typography ${theme}`);
+  constructor(config: ConfigStore) {
+    config.theme.subscribe((theme) => this.classes = `wrapper mat-typography ${theme}`);
   }
 }

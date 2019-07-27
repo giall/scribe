@@ -2,10 +2,10 @@ import { Validators } from "@angular/forms";
 
 const lengths = {
   username: {
-    min: 5, max: 25
+    min: 5, max: 30
   },
   password: {
-    min: 8, max: 20
+    min: 8, max: 30
   }
 }
 

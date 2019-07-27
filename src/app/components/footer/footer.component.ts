@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThemeService } from 'src/app/services/theme/theme.service';
+import { ConfigStore } from 'src/app/stores/config/config.store';
 
 @Component({
   selector: 'app-footer',
@@ -8,7 +8,7 @@ import { ThemeService } from 'src/app/services/theme/theme.service';
 })
 export class FooterComponent {
 
-  constructor(private themeService: ThemeService) { }
+  constructor(private themeService: ConfigStore) { }
 
   toggleTheme() {
     this.themeService.toggle();

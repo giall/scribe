@@ -19,8 +19,8 @@
           required>
         <mat-error>{{getLengthValidationError('password')}}</mat-error>
       </mat-form-field>
+      <br />
+      <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid">REGISTER</button>
     </form>
-    <br />
-    <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid">REGISTER</button>
   </div>
 </mat-card>

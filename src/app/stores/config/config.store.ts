@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { LogService } from '../log/log.service';
+import { LogService } from '../../services/log/log.service';
 
 export enum Theme {
   Light = 'light',
@@ -10,7 +10,7 @@ export enum Theme {
 @Injectable({
   providedIn: 'root'
 })
-export class ThemeService {
+export class ConfigStore {
 
   theme: BehaviorSubject<Theme>;
   current: Theme;

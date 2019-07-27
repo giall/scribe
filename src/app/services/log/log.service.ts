@@ -13,4 +13,8 @@ export class LogService {
       console.info(...args);
     }
   }
+
+  error(...args: any[]) {
+    console.error(...args);
+  }
 }
