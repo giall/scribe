@@ -3,8 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { getMinMaxValidators, getLengthValidationError } from 'src/app/utils/validation.util';
 import { LogService } from 'src/app/services/log/log.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { UserStore } from 'src/app/stores/user/user.store';
+import { Router } from '@angular/router';
+import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +13,8 @@ import { UserStore } from 'src/app/stores/user/user.store';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  submitted = false;
 
   form = new FormGroup({
     email: new FormControl(
@@ -25,20 +28,22 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(private logger: LogService, private authService: AuthenticationService,
-    private _snackBar: MatSnackBar, private user: UserStore) { }
+    private alert: AlertService, private user: UserStore, private router: Router) { }
 
   ngOnInit() {
   }
 
   onSubmit() {
+    this.submitted = true;
     const options = this.form.value;
     this.logger.info('Submitting login form:', options);
     this.authService.login(options).subscribe(user => {
       this.user.set(user);
+      this.alert.showSnackbar('Successfully logged in.');
+      this.router.navigate(['/home']);
     }, err => {
-      this._snackBar.open(err, 'CLOSE', {
-        duration: 2000
-      });
+      this.submitted = false;
+      this.alert.showSnackbar(err);
     });
   }
 

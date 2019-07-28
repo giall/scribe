@@ -1,4 +1,3 @@
-
 @import '~@angular/material/theming';
 
 $hecate-typography: mat-typography-config(
@@ -85,8 +84,13 @@ $hecate-app-theme-light: mat-light-theme(mat-palette($hecate-light), $hecate-app
 $hecate-app-theme-dark: mat-dark-theme(mat-palette($hecate-dark), $hecate-app-accent, $hecate-app-warn);
 
 @include angular-material-theme($hecate-app-theme-light);
+// @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 .light {
+  .hecate-primary-color {
+    color: $hecate-light-primary;
+  }
+
   .hecate-primary {
     color: white;
     background-color: $hecate-light-primary;
@@ -96,6 +100,10 @@ $hecate-app-theme-dark: mat-dark-theme(mat-palette($hecate-dark), $hecate-app-ac
 .dark {
   @include angular-material-theme($hecate-app-theme-dark);
   
+  .hecate-primary-color {
+    color: $hecate-dark-primary;
+  }
+
   .content {
     color: white;
     background-color: #303030;

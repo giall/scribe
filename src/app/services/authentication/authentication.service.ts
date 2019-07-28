@@ -11,20 +11,34 @@ export class AuthenticationService {
 
   static DEFAULT_ERROR = 'Something went wrong; please try again later.';
 
+  options = {
+    // withCredentials: true
+  }
+
   constructor(private http: HttpClient, private logger: LogService) { }
 
-  login(options: { email: string; password: string }) {
-    return this.http.post('/api/login', options)
+  login(body: { email: string; password: string }) {
+    return this.http.post('/api/login', body, this.options)
       .pipe(
         catchError(this.handleLoginError.bind({ logger: this.logger }))
       );
   }
 
-  register(options: { username: string; email: string; password: string }) {
-    return this.http.post('/api/register', options)
+  register(body: { username: string; email: string; password: string }) {
+    return this.http.post('/api/register', body)
       .pipe(
         catchError(this.handleRegisterError.bind({ logger: this.logger }))
       );
+  }
+
+  tokenLogin() {
+    return this.http.post('/api/tokenLogin', {});
+  }
+
+  logout() {
+    return this.http.post('/api/logout', {}, {
+      responseType: 'text'
+    });
   }
 
   private handleLoginError(error: HttpErrorResponse) {
@@ -50,14 +64,4 @@ export class AuthenticationService {
     }
     return throwError(errorMsg);
   }
-
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error('An error occurred:', error.error.message);
-    } else {
-      console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
-    }
-    // return an observable with a user-facing error message
-    return throwError('Something went wrong; please try again later.');
-  };
 }

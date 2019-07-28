@@ -10,3 +10,7 @@
 .form-card {
   padding: 16px;
 }
+
+mat-spinner {
+  margin: 4px auto;
+}

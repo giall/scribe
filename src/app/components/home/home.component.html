@@ -1,3 +1,12 @@
+<mat-card *ngIf="details && !details.verified">
+  <h2>Email verification pending</h2>
+  <span>
+    We've sent you an email at <span class="hecate-primary-color">{{details.email}}</span>. Please follow the link in the email to verify your email and complete your registration.
+    <br/><br/>
+    Wrong email? No problem! You can change your email here.
+  </span>
+</mat-card>
+
 <mat-card>
   <img height="200em" [src]="image"/>
   <h1>{{welcomeText}}</h1>

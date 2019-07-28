@@ -8,9 +8,14 @@ import { UserStore } from 'src/app/stores/user/user.store';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  
+
   image: string;
   welcomeText = 'Welcome to Hecate!';
+  
+  details: {
+    email: string;
+    verified: boolean;
+  }
 
   constructor(private config: ConfigStore, private user: UserStore) { }
 
@@ -19,8 +24,13 @@ export class HomeComponent implements OnInit {
     this.user.current.subscribe(user => {
       if (user) {
         this.welcomeText = `Welcome to Hecate, ${user.username}!`;
+        this.details = {
+          email: user.email,
+          verified: user.verified
+        }
       } else {
         this.welcomeText = 'Welcome to Hecate!';
+        this.details = undefined;
       }
     });
   }
