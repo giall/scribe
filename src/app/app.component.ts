@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ConfigStore } from './stores/config/config.store';
 import { Theme } from './models/theme';
-import { AuthenticationService } from './services/authentication/authentication.service';
+import { AuthService } from './services/auth/auth.service';
 import { UserStore } from './stores/user/user.store';
 
 @Component({
@@ -13,7 +13,9 @@ export class AppComponent {
   title = 'hecate-app';
   classes: string;
 
-  constructor(config: ConfigStore, auth: AuthenticationService, user: UserStore) {
+  completed = false;
+
+  constructor(config: ConfigStore, auth: AuthService, user: UserStore) {
     config.theme.subscribe((theme: Theme) => this.classes = `wrapper mat-typography ${theme}`);
     auth.tokenLogin().subscribe((res) => {
       user.set(res);

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { getMinMaxValidators, getLengthValidationError } from 'src/app/utils/validation.util';
 import { LogService } from 'src/app/services/log/log.service';
-import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserStore } from 'src/app/stores/user/user.store';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert/alert.service';
@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
       )
   });
 
-  constructor(private logger: LogService, private authService: AuthenticationService,
+  constructor(private logger: LogService, private authService: AuthService,
     private alert: AlertService, private user: UserStore, private router: Router) { }
 
   ngOnInit() {

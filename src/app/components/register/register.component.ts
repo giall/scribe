@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { getMinMaxValidators, getLengthValidationError } from 'src/app/utils/validation.util';
 import { LogService } from 'src/app/services/log/log.service';
-import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
       )
   });
 
-  constructor(private logger: LogService, private auth: AuthenticationService, private _snackBar: MatSnackBar) { }
+  constructor(private logger: LogService, private auth: AuthService, private _snackBar: MatSnackBar) { }
 
   ngOnInit() {
   }

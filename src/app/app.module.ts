@@ -25,6 +25,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
+import { AccountComponent } from './components/account/account.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ConfirmationDialogComponent } from './components/confirmation-dialog/co
     HeaderComponent,
     FooterComponent,
     RegisterComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
