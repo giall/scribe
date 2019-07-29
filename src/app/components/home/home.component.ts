@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigStore } from 'src/app/stores/config/config.store';
 import { UserStore } from 'src/app/stores/user/user.store';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/models/user';
+import { Theme } from 'src/app/models/theme';
 
 @Component({
   selector: 'app-home',
@@ -9,29 +12,13 @@ import { UserStore } from 'src/app/stores/user/user.store';
 })
 export class HomeComponent implements OnInit {
 
-  image: string;
-  welcomeText = 'Welcome to Hecate!';
+  theme: Observable<Theme>;
+  userDetails: Observable<User>;
   
-  details: {
-    email: string;
-    verified: boolean;
-  }
-
   constructor(private config: ConfigStore, private user: UserStore) { }
 
   ngOnInit() {
-    this.config.theme.subscribe(theme => this.image = `assets/img/auth_${theme}.svg`);
-    this.user.current.subscribe(user => {
-      if (user) {
-        this.welcomeText = `Welcome to Hecate, ${user.username}!`;
-        this.details = {
-          email: user.email,
-          verified: user.verified
-        }
-      } else {
-        this.welcomeText = 'Welcome to Hecate!';
-        this.details = undefined;
-      }
-    });
+    this.theme = this.config.theme;
+    this.userDetails = this.user.details;
   }
 }

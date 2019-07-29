@@ -3,6 +3,7 @@ import { UserStore } from 'src/app/stores/user/user.store';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { Action } from 'src/app/models/action';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -11,12 +12,12 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
   
-  isLoggedIn = false;
+  isLoggedIn: Observable<boolean>;
 
   constructor(private user: UserStore, private alert: AlertService, private auth: AuthService) { }
 
   ngOnInit() {
-    this.user.loggedIn.subscribe(isLoggedIn => this.isLoggedIn = isLoggedIn);
+    this.isLoggedIn = this.user.isLoggedIn;
   }
 
   logOut(): void {

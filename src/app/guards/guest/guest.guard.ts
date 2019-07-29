@@ -18,7 +18,7 @@ export class GuestGuard implements CanActivate {
   }
 
   isGuest(): Observable<boolean> {
-    return this.user.loggedIn.asObservable().pipe(
+    return this.user.isLoggedIn.pipe(
       map((isLoggedIn: boolean) => !isLoggedIn)
     );
   }

@@ -4,6 +4,9 @@ import { getMinMaxValidators, getLengthValidationError } from 'src/app/utils/val
 import { LogService } from 'src/app/services/log/log.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AlertService } from 'src/app/services/alert/alert.service';
+import { UserStore } from 'src/app/stores/user/user.store';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -24,10 +27,11 @@ export class RegisterComponent implements OnInit {
     password: new FormControl(
       '',
       [Validators.required, ...getMinMaxValidators('password')]
-      )
+    )
   });
 
-  constructor(private logger: LogService, private auth: AuthService, private _snackBar: MatSnackBar) { }
+  constructor(private logger: LogService, private auth: AuthService,
+    private user: UserStore, private router: Router, private alert: AlertService) { }
 
   ngOnInit() {
   }
@@ -35,15 +39,13 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     const options = this.form.value;
     this.logger.info('Submitting register form:', options);
-    this.auth.register(options).subscribe(user => {
-      console.log(user);
-      // store user data
-      // redirect to home
-    }, err => {
-      this._snackBar.open(err, 'CLOSE', {
-        duration: 2000
-      });
-    });
+    this.auth.register(options).subscribe(
+      user => {
+        this.user.set(user);
+        this.router.navigate(['/home']);
+      },
+      err => this.alert.showSnackbar(err)
+    );
   }
 
   getLengthValidationError(field: string) {

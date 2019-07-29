@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
     password: new FormControl(
       '',
       [Validators.required, ...getMinMaxValidators('password')]
-      )
+    )
   });
 
   constructor(private logger: LogService, private authService: AuthService,
@@ -37,14 +37,15 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     const options = this.form.value;
     this.logger.info('Submitting login form:', options);
-    this.authService.login(options).subscribe(user => {
-      this.user.set(user);
-      this.alert.showSnackbar('Successfully logged in.');
-      this.router.navigate(['/home']);
-    }, err => {
-      this.submitted = false;
-      this.alert.showSnackbar(err);
-    });
+    this.authService.login(options).subscribe(
+      _ => {
+        this.alert.showSnackbar('Successfully logged in.');
+        this.router.navigate(['/home']);
+      },
+      err => {
+        this.submitted = false;
+        this.alert.showSnackbar(err);
+      });
   }
 
   getLengthValidationError(field: string) {

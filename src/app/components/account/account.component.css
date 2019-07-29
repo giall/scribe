@@ -1,0 +1,16 @@
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container > * {
+  width: 100%;
+}
+
+.form-card {
+  padding: 16px;
+}
+
+mat-spinner {
+  margin: 4px auto;
+}

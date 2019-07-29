@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConfigStore } from '../../stores/config/config.store';
+import { Observable } from 'rxjs';
+import { Theme } from 'src/app/models/theme';
 
 @Component({
   selector: 'app-page-not-found',
@@ -8,12 +10,12 @@ import { ConfigStore } from '../../stores/config/config.store';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  image: string;
+  theme: Observable<Theme>;
 
   constructor(private config: ConfigStore) { }
 
   ngOnInit() {
-    this.config.theme.subscribe((theme) => this.image = `assets/img/page_not_found_${theme}.svg`);
+    this.theme = this.config.theme;
   }
 
 }

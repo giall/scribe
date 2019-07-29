@@ -4,28 +4,33 @@ import { throwError, of } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { LogService } from '../log/log.service';
 import { UserStore } from 'src/app/stores/user/user.store';
+import { User } from 'src/app/models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  static DEFAULT_ERROR = 'Something went wrong; please try again later.';
-
   constructor(private http: HttpClient, private user: UserStore, private logger: LogService) { }
 
   login(body: { email: string; password: string }) {
     return this.http.post('/api/login', body)
       .pipe(
-        catchError(this.handleLoginError.bind({ logger: this.logger })),
-        tap(val => this.user.set(val))
+        catchError(this.getErrorHandler({
+          statusCode: 401,
+          errorMsg: 'Invalid credentials. Please try again.'
+        })),
+        tap((user: User) => this.user.set(user))
       );
   }
 
   register(body: { username: string; email: string; password: string }) {
     return this.http.post('/api/register', body)
       .pipe(
-        catchError(this.handleRegisterError.bind({ logger: this.logger }))
+        catchError(this.getErrorHandler({
+          statusCode: 409,
+          errorMsg: 'A user with this email or username already exists.'
+        }))
       );
   }
 
@@ -47,27 +52,23 @@ export class AuthService {
       );
   }
 
-  private handleLoginError(error: HttpErrorResponse) {
-    let errorMsg = AuthService.DEFAULT_ERROR;
-    if (error.error instanceof ErrorEvent) {
-      this.logger.error('An error occurred:', error.error.message);
-    } else {
-      if (error.status === 401) {
-        errorMsg = 'Invalid credentials. Please try again.';
-      }
-    }
-    return throwError(errorMsg);
+  passwordChange(body: {oldPassword: string; newPassword: string}) {
+    const options: {} = {
+      responseType: 'text'
+    };
+    return this.http.put('/api/password/change', body, options)
+      .pipe(
+        catchError(this.getErrorHandler({
+          statusCode: 400,
+          errorMsg: 'Invalid password. Please try again.'
+        }))
+      );
   }
 
-  private handleRegisterError(error: HttpErrorResponse) {
-    let errorMsg = AuthService.DEFAULT_ERROR;
-    if (error.error instanceof ErrorEvent) {
-      this.logger.error('An error occurred:', error.error.message);
-    } else {
-      if (error.status === 409) {
-        errorMsg = 'A user with this email or username already exists.';
-      }
+  private getErrorHandler(...errors: {statusCode: number; errorMsg: string}[]) {
+    return function handleError(error: HttpErrorResponse) {
+      const match = errors.find(err => err.statusCode === error.status);
+      return throwError((match) ? match.errorMsg : 'Something went wrong; please try again later.');
     }
-    return throwError(errorMsg);
   }
 }
