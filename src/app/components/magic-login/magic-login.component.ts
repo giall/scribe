@@ -41,7 +41,7 @@ export class MagicLoginComponent implements OnInit {
       err => {
         this.log.error(err);
         this.submitted = false;
-        this.alert.showSnackbar(err);
+        this.alert.showSnackbar(err.error);
       });
   }
 }

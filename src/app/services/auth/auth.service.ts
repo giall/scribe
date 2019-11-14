@@ -17,22 +17,12 @@ export class AuthService {
   login(body: { email: string; password: string }) {
     return this.http.post('/api/auth/login', body)
       .pipe(
-        catchError(this.getErrorHandler({
-          statusCode: 401,
-          errorMsg: 'Invalid credentials. Please try again.'
-        })),
         tap((user: User) => this.user.set(user))
       );
   }
 
   register(body: { username: string; email: string; password: string }) {
-    return this.http.post('/api/user/register', body)
-      .pipe(
-        catchError(this.getErrorHandler({
-          statusCode: 409,
-          errorMsg: 'A user with this email or username already exists.'
-        }))
-      );
+    return this.http.post('/api/user/register', body);
   }
 
   refresh() {
@@ -45,10 +35,6 @@ export class AuthService {
     };
     return this.http.post('/api/auth/logout', {}, options)
       .pipe(
-        catchError(err => {
-          this.log.error(err);
-          return of(''); // return fallback value instead of throwing error so user is cleared
-        }),
         tap(_ => this.user.clear())
       );
   }
@@ -57,13 +43,7 @@ export class AuthService {
     const options: {} = {
       responseType: 'text'
     };
-    return this.http.put('/api/user/email/verify', {token}, options)
-      .pipe(
-        catchError(this.getErrorHandler({
-          statusCode: 410,
-          errorMsg: 'Your email is already verified.'
-        }))
-      );
+    return this.http.put('/api/user/email/verify', {token}, options);
   }
 
   emailMagicLogin(body: { email: string }) {
@@ -77,13 +57,7 @@ export class AuthService {
     const options: {} = {
       responseType: 'text'
     };
-    return this.http.put('/api/user/password/change', body, options)
-      .pipe(
-        catchError(this.getErrorHandler({
-          statusCode: 400,
-          errorMsg: 'Invalid password. Please try again.'
-        }))
-      );
+    return this.http.put('/api/user/password/change', body, options);
   }
 
   forgotPassword(body: { email: string }) {
@@ -93,10 +67,4 @@ export class AuthService {
     return this.http.post('/api/user/password/reset/request', body, options);
   }
 
-  private getErrorHandler(...errors: { statusCode: number; errorMsg: string }[]) {
-    return function handleError(error: HttpErrorResponse) {
-      const match = errors.find(err => err.statusCode === error.status);
-      return throwError((match) ? match.errorMsg : 'Something went wrong; please try again later.');
-    };
-  }
 }

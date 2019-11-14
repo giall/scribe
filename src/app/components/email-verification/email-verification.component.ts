@@ -31,7 +31,7 @@ export class EmailVerificationComponent implements OnInit, OnDestroy {
             this.router.navigate(['/login']);
           },
           err => {
-            this.alert.showSnackbar(err);
+            this.alert.showSnackbar(err.error);
             this.router.navigate(['/home']);
           }
         );

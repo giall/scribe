@@ -66,7 +66,7 @@ export class AccountComponent implements OnInit {
       },
       err => {
         this.submitted.password = false;
-        this.alert.showSnackbar(err);
+        this.alert.showSnackbar(err.error);
       }
     );
   }

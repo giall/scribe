@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
       },
       err => {
         this.submitted = false;
-        this.alert.showSnackbar(err);
+        this.alert.showSnackbar(err.error);
       }
     );
   }
