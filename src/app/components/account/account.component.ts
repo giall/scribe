@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { Validators, FormControl, FormGroup, AbstractControl, ValidatorFn } from '@angular/forms';
-import { LogService } from 'src/app/services/log/log.service';
-import { AlertService } from 'src/app/services/alert/alert.service';
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { UserStore } from 'src/app/stores/user/user.store';
-import { getLengthValidationError, getMinMaxValidators } from 'src/app/utils/validation.util';
-import { Observable } from 'rxjs';
-import { User } from 'src/app/models/user';
+import {Component, OnInit} from '@angular/core';
+import {Validators, FormControl, FormGroup, AbstractControl, ValidatorFn} from '@angular/forms';
+import {LogService} from 'src/app/services/log/log.service';
+import {AlertService} from 'src/app/services/alert/alert.service';
+import {AuthService} from 'src/app/services/auth/auth.service';
+import {UserStore} from 'src/app/stores/user/user.store';
+import {getLengthValidationError, getMinMaxValidators} from 'src/app/utils/validation.util';
+import {Observable} from 'rxjs';
+import {User} from 'src/app/models/user';
 
 @Component({
   selector: 'app-account',
@@ -19,14 +19,14 @@ export class AccountComponent implements OnInit {
     email: false,
     password: false
   };
-  userDetails: Observable<User>;
+  user$: Observable<User>;
 
   emailForm = new FormGroup({
     email: new FormControl(
       '',
       [Validators.required, Validators.email]
     ),
-  })
+  });
 
   passwordForm = new FormGroup({
     oldPassword: new FormControl(
@@ -39,35 +39,36 @@ export class AccountComponent implements OnInit {
     )
   }, {
     validators: [this.samePasswordValidator]
-  })
+  });
 
-  constructor(private logger: LogService, private authService: AuthService,
-    private alert: AlertService, private user: UserStore) { }
+  constructor(private log: LogService, private authService: AuthService,
+              private alert: AlertService, private user: UserStore) {
+  }
 
   ngOnInit() {
-    this.userDetails = this.user.details;
+    this.user$ = this.user.details;
   }
 
   changeEmail() {
     this.submitted.email = true;
     const options = this.emailForm.value;
-    this.logger.info('Submitting changeEmail form:', options);
+    this.log.info('Submitting changeEmail form:', options);
   }
 
   changePassword() {
     this.submitted.password = true;
     const options = this.passwordForm.value;
-    this.logger.info('Submitting changePassword form:', options);
+    this.log.info('Submitting changePassword form:', options);
     this.authService.passwordChange(options).subscribe(
       _ => {
         this.submitted.password = false;
-        this.alert.showSnackbar('Password changed successfully.')
+        this.alert.showSnackbar('Password changed successfully.');
       },
       err => {
         this.submitted.password = false;
         this.alert.showSnackbar(err);
-      } 
-    )
+      }
+    );
   }
 
   get newPassword(): AbstractControl {
@@ -78,9 +79,9 @@ export class AccountComponent implements OnInit {
     return getLengthValidationError(field);
   }
 
-  samePasswordValidator(control: AbstractControl): {[key: string]: any} | null {
+  samePasswordValidator(control: AbstractControl): { [key: string]: any } | null {
     const samePassword = control.get('newPassword').value === control.get('oldPassword').value;
-    return samePassword ? {'samePassword': true} : null;
+    return samePassword ? {samePassword: true} : null;
   }
 
 }

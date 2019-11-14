@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "hecate-app": {
+    "scribe": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/hecate-app",
+            "outputPath": "dist/scribe",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -24,7 +24,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/hecate-theme.scss",
+              "src/scribe-theme.scss",
               "src/styles.css"
             ],
             "scripts": []
@@ -59,19 +59,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "hecate-app:build",
+            "browserTarget": "scribe:build",
             "proxyConfig": "src/proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "hecate-app:build:production"
+              "browserTarget": "scribe:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "hecate-app:build"
+            "browserTarget": "scribe:build"
           }
         },
         "test": {
@@ -108,16 +108,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "hecate-app:serve"
+            "devServerTarget": "scribe:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "hecate-app:serve:production"
+              "devServerTarget": "scribe:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "hecate-app"
+  "defaultProject": "scribe"
 }

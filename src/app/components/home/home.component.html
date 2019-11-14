@@ -1,20 +1,18 @@
-<mat-card *ngIf="(userDetails | async) && !(userDetails | async).verified">
+<mat-card *ngIf="(user$ | async) && !(user$ | async).verified">
   <h2>Email verification pending</h2>
   <span>
-    We've sent you an email at <span class="hecate-primary-color">{{(userDetails | async)?.email}}</span>. Please follow the link in the email to verify your email and complete your registration.
+    We've sent you an email at <span class="scribe-primary-color">{{(user$ | async)?.email}}</span>. Please follow the link in the email to verify your email and complete your registration.
     <br/><br/>
     Wrong email? No problem! You can change your email here.
   </span>
 </mat-card>
 
 <mat-card>
-  <img height="200em" [src]="'assets/img/auth_' + (theme | async) + '.svg'"/>
-  <h1>Welcome to Hecate<span *ngIf="(userDetails | async)">, {{(userDetails | async).username}}</span>!</h1>
+  <img height="200em" [src]="'assets/img/auth_' + (theme$ | async) + '.svg'"/>
+  <h1>Welcome to Scribe<span *ngIf="(user$ | async)">, {{(user$ | async).username}}</span>!</h1>
   <span>
     This is an example web application using the Hecate authentication service. You can log in or register by using the links above.
     <br/><br/>
     You can also check out the source code for this web application, as well as the authentication service, by clicking on the GitHub icon at the bottom right.
-    <br/><br/>
-    Happy authenticating!
   </span>
 </mat-card>

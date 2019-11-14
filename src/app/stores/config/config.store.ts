@@ -10,7 +10,7 @@ export class ConfigStore {
 
   current: BehaviorSubject<Theme>;
 
-  constructor(private logger: LogService) {
+  constructor(private log: LogService) {
     this.current = new BehaviorSubject(Theme.Light);
   }
 
@@ -20,7 +20,7 @@ export class ConfigStore {
 
   toggle() {
     const theme = (this.current.getValue() === Theme.Light) ? Theme.Dark : Theme.Light;
-    this.logger.info(`Changing theme to ${theme}`);
+    this.log.info(`Changing theme to ${theme}`);
     this.current.next(theme);
   }
 }

@@ -1,17 +1,17 @@
 @import '~@angular/material/theming';
 
-$hecate-typography: mat-typography-config(
+$scribe-typography: mat-typography-config(
   $font-family: 'Lato, sans-serif',
   $headline: mat-typography-level(32px, 48px, 700),
   $body-1: mat-typography-level(16px, 24px, 500)
 );
 
-@include mat-core($hecate-typography);
+@include mat-core($scribe-typography);
 
-$hecate-dark-primary: #40826d;
-$hecate-light-primary: #009698;
+$scribe-dark-primary: #40826d;
+$scribe-light-primary: #009698;
 
-$hecate-dark: (
+$scribe-dark: (
     50 : #e8f0ed,
     100 : #c6dad3,
     200 : #a0c1b6,
@@ -44,7 +44,7 @@ $hecate-dark: (
     )
 );
 
-$hecate-light: (
+$scribe-light: (
     50 : #e0f2f3,
     100 : #b3e0e0,
     200 : #80cbcc,
@@ -77,31 +77,31 @@ $hecate-light: (
     )
 );
 
-$hecate-app-accent: mat-palette($mat-pink, A200, A100, A400);
-$hecate-app-warn: mat-palette($mat-red);
+$scribe-accent: mat-palette($mat-pink, A200, A100, A400);
+$scribe-warn: mat-palette($mat-red);
 
-$hecate-app-theme-light: mat-light-theme(mat-palette($hecate-light), $hecate-app-accent, $hecate-app-warn);
-$hecate-app-theme-dark: mat-dark-theme(mat-palette($hecate-dark), $hecate-app-accent, $hecate-app-warn);
+$scribe-theme-light: mat-light-theme(mat-palette($scribe-light), $scribe-accent, $scribe-warn);
+$scribe-theme-dark: mat-dark-theme(mat-palette($scribe-dark), $scribe-accent, $scribe-warn);
 
-@include angular-material-theme($hecate-app-theme-light);
+@include angular-material-theme($scribe-theme-light);
 // @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 .light {
-  .hecate-primary-color {
-    color: $hecate-light-primary;
+  .scribe-primary-color {
+    color: $scribe-light-primary;
   }
 
-  .hecate-primary {
+  .scribe-primary {
     color: white;
-    background-color: $hecate-light-primary;
+    background-color: $scribe-light-primary;
   }
 }
 
 .dark {
-  @include angular-material-theme($hecate-app-theme-dark);
-  
-  .hecate-primary-color {
-    color: $hecate-dark-primary;
+  @include angular-material-theme($scribe-theme-dark);
+
+  .scribe-primary-color {
+    color: $scribe-dark-primary;
   }
 
   .content {
@@ -109,8 +109,8 @@ $hecate-app-theme-dark: mat-dark-theme(mat-palette($hecate-dark), $hecate-app-ac
     background-color: #303030;
   }
 
-  .hecate-primary {
+  .scribe-primary {
     color: white;
-    background-color: $hecate-dark-primary;
+    background-color: $scribe-dark-primary;
   }
 }

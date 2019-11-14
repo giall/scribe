@@ -26,6 +26,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './components/confirmation-dialog/confirmation-dialog.component';
 import { AccountComponent } from './components/account/account.component';
+import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
+import {MatBadgeModule} from '@angular/material/badge';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { MagicLoginComponent } from './components/magic-login/magic-login.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +42,10 @@ import { AccountComponent } from './components/account/account.component';
     FooterComponent,
     RegisterComponent,
     ConfirmationDialogComponent,
-    AccountComponent
+    AccountComponent,
+    EmailVerificationComponent,
+    ForgotPasswordComponent,
+    MagicLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -55,7 +62,8 @@ import { AccountComponent } from './components/account/account.component';
     MatInputModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    MatDialogModule
+    MatDialogModule,
+    MatBadgeModule
   ],
   entryComponents: [
     ConfirmationDialogComponent

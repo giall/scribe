@@ -1,21 +1,29 @@
 <mat-card>
   <div class="form-card form-container">
-    <h1>Log In</h1>
+    <h1>Log in</h1>
     <form class="form-container" [formGroup]="form" (ngSubmit)="onSubmit()">
       <mat-form-field>
         <input matInput placeholder="Email" type="email" formControlName="email" required>
         <mat-error>Please enter a valid email address</mat-error>
       </mat-form-field>
-      <br />
+      <br/>
       <mat-form-field>
         <input matInput placeholder="Password" type="password" minlength="8" maxlength="20" formControlName="password"
-          required>
+               required>
         <mat-error>{{getLengthValidationError('password')}}</mat-error>
       </mat-form-field>
-      <br />
+      <br/>
       <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid || submitted">
         <mat-spinner *ngIf="submitted" diameter="32"></mat-spinner>
         <span *ngIf="!submitted">Log In</span>
+      </button>
+      <span class="space"></span>
+      <button mat-stroked-button routerLink="/magic-login">
+        <span>Send me a one-time login link</span>
+      </button>
+      <span class="space"></span>
+      <button mat-stroked-button routerLink="/forgot-password">
+        <span>I forgot my password</span>
       </button>
     </form>
   </div>

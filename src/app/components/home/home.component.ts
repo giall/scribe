@@ -12,13 +12,13 @@ import { Theme } from 'src/app/models/theme';
 })
 export class HomeComponent implements OnInit {
 
-  theme: Observable<Theme>;
-  userDetails: Observable<User>;
+  theme$: Observable<Theme>;
+  user$: Observable<User>;
   
   constructor(private config: ConfigStore, private user: UserStore) { }
 
   ngOnInit() {
-    this.theme = this.config.theme;
-    this.userDetails = this.user.details;
+    this.theme$ = this.config.theme;
+    this.user$ = this.user.details;
   }
 }

@@ -1,27 +1,30 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ConfigStore } from './stores/config/config.store';
 import { Theme } from './models/theme';
 import { AuthService } from './services/auth/auth.service';
 import { UserStore } from './stores/user/user.store';
+import { User } from './models/user';
+import {LogService} from './services/log/log.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  title = 'hecate-app';
+export class AppComponent implements OnInit {
+  title = 'scribe';
   classes: string;
 
-  completed = false;
+  constructor(private config: ConfigStore, private auth: AuthService,
+              private user: UserStore, private log: LogService) { }
 
-  constructor(config: ConfigStore, auth: AuthService, user: UserStore) {
-    config.theme.subscribe((theme: Theme) => this.classes = `wrapper mat-typography ${theme}`);
-    auth.tokenLogin().subscribe((res) => {
-      user.set(res);
+  ngOnInit() {
+    this.config.theme.subscribe((theme: Theme) => this.classes = `wrapper mat-typography ${theme}`);
+    this.auth.refresh().subscribe((user: User) => {
+      this.user.set(user);
     },
     err => {
-      console.error(err);
-    })
+      this.log.error(err);
+    });
   }
 }

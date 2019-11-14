@@ -20,7 +20,10 @@
         <mat-error>{{getLengthValidationError('password')}}</mat-error>
       </mat-form-field>
       <br />
-      <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid">Register</button>
+      <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid || submitted">
+        <mat-spinner *ngIf="submitted" diameter="32"></mat-spinner>
+        <span *ngIf="!submitted">Register</span>
+      </button>
     </form>
   </div>
 </mat-card>

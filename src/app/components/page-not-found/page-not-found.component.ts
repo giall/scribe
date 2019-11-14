@@ -10,12 +10,12 @@ import { Theme } from 'src/app/models/theme';
 })
 export class PageNotFoundComponent implements OnInit {
 
-  theme: Observable<Theme>;
+  theme$: Observable<Theme>;
 
   constructor(private config: ConfigStore) { }
 
   ngOnInit() {
-    this.theme = this.config.theme;
+    this.theme$ = this.config.theme;
   }
 
 }

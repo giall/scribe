@@ -11,7 +11,7 @@ export class UserStore {
 
   private user: BehaviorSubject<User>;
 
-  constructor(private logger: LogService) {
+  constructor(private log: LogService) {
     this.user = new BehaviorSubject(undefined);
   }
 
@@ -26,12 +26,12 @@ export class UserStore {
   }
 
   set(user: User) {
-    this.logger.info('Setting user to store:', user);
+    this.log.info('Setting user to store:', user);
     this.user.next(user);
   }
 
   clear() {
-    this.logger.info('Clearing user from store');
+    this.log.info('Clearing user from store');
     this.user.next(undefined);
   }
 }

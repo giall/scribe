@@ -11,10 +11,10 @@ import { Observable } from 'rxjs';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  
   isLoggedIn: Observable<boolean>;
 
-  constructor(private user: UserStore, private alert: AlertService, private auth: AuthService) { }
+  constructor(private user: UserStore, private alert: AlertService, private auth: AuthService) {
+  }
 
   ngOnInit() {
     this.isLoggedIn = this.user.isLoggedIn;

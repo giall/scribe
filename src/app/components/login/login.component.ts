@@ -27,8 +27,9 @@ export class LoginComponent implements OnInit {
     )
   });
 
-  constructor(private logger: LogService, private authService: AuthService,
-    private alert: AlertService, private user: UserStore, private router: Router) { }
+  constructor(private log: LogService, private authService: AuthService,
+              private alert: AlertService, private user: UserStore, private router: Router) {
+  }
 
   ngOnInit() {
   }
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     const options = this.form.value;
-    this.logger.info('Submitting login form:', options);
+    this.log.info('Submitting login form:', options);
     this.authService.login(options).subscribe(
       _ => {
         this.alert.showSnackbar('Successfully logged in.');
