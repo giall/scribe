@@ -4,6 +4,7 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 import { Action } from 'src/app/models/action';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,8 @@ import { Observable } from 'rxjs';
 export class HeaderComponent implements OnInit {
   isLoggedIn: Observable<boolean>;
 
-  constructor(private user: UserStore, private alert: AlertService, private auth: AuthService) {
+  constructor(private user: UserStore, private alert: AlertService,
+              private auth: AuthService, private router: Router) {
   }
 
   ngOnInit() {
@@ -22,7 +24,13 @@ export class HeaderComponent implements OnInit {
 
   logOut(): void {
     this.alert.showConfirmationDialog(Action.LogOut, () => {
-      this.auth.logout().subscribe(_ => this.alert.showSnackbar('Successfully logged out.'));
+      this.auth.logout().subscribe(_ => {
+        if (this.router.url === '/account') {
+          this.router.navigate(['/home']);
+        }
+        this.user.clear();
+        this.alert.showSnackbar('Successfully logged out.');
+      });
     });
   }
 

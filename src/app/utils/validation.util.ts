@@ -1,20 +1,25 @@
-import { Validators } from "@angular/forms";
+import { Validators } from '@angular/forms';
 
-const lengths = {
-  username: {
-    min: 5, max: 30
-  },
-  password: {
-    min: 8, max: 30
-  }
+export enum Field {
+  Username,
+  Password
 }
 
-function getLengthValidationError(field: string) {
+const lengths = {
+  [Field.Username]: {
+    min: 5, max: 30
+  },
+  [Field.Password]: {
+    min: 8, max: 30
+  }
+};
+
+function getLengthValidationError(field: Field) {
   const requirements = lengths[field];
   return `Must be between ${requirements.min} and ${requirements.max} characters long`;
 }
 
-function getMinMaxValidators(field: string) {
+function getMinMaxValidators(field: Field) {
   const requirements = lengths[field];
   return [
     Validators.minLength(requirements.min),
@@ -24,4 +29,4 @@ function getMinMaxValidators(field: string) {
 
 export {
   getLengthValidationError, getMinMaxValidators
-}
+};

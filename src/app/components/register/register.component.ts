@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { getMinMaxValidators, getLengthValidationError } from 'src/app/utils/validation.util';
+import { getMinMaxValidators, getLengthValidationError, Field } from 'src/app/utils/validation.util';
 import { LogService } from 'src/app/services/log/log.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
   form = new FormGroup({
     username: new FormControl(
       '',
-      [Validators.required, ...getMinMaxValidators('username')]
+      [Validators.required, ...getMinMaxValidators(Field.Username)]
     ),
     email: new FormControl(
       '',
@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
     ),
     password: new FormControl(
       '',
-      [Validators.required, ...getMinMaxValidators('password')]
+      [Validators.required, ...getMinMaxValidators(Field.Password)]
     )
   });
 
@@ -55,8 +55,12 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  getLengthValidationError(field: string) {
-    return getLengthValidationError(field);
+  get usernameValidationError() {
+    return getLengthValidationError(Field.Username);
+  }
+
+  get passwordValidationError() {
+    return getLengthValidationError(Field.Password);
   }
 
 }

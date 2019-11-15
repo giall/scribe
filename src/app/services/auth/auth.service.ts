@@ -30,10 +30,7 @@ export class AuthService {
   }
 
   logout() {
-    return this.http.post('/api/auth/logout', {}, this.options)
-      .pipe(
-        tap(_ => this.user.clear())
-      );
+    return this.http.post('/api/auth/logout', {}, this.options);
   }
 
   verifyEmail(token: string) {

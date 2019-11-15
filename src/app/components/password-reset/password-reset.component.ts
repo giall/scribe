@@ -5,7 +5,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { AlertService } from '../../services/alert/alert.service';
 import { first, map } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { getMinMaxValidators, getLengthValidationError } from 'src/app/utils/validation.util';
+import { getMinMaxValidators, getLengthValidationError, Field } from 'src/app/utils/validation.util';
 import { LogService } from '../../services/log/log.service';
 
 @Component({
@@ -21,7 +21,7 @@ export class PasswordResetComponent implements OnInit, OnDestroy {
   form = new FormGroup({
     newPassword: new FormControl(
       '',
-      [Validators.required, ...getMinMaxValidators('password')]
+      [Validators.required, ...getMinMaxValidators(Field.Password)]
     )
   });
 
@@ -63,8 +63,7 @@ export class PasswordResetComponent implements OnInit, OnDestroy {
     });
   }
 
-  getLengthValidationError(field: string) {
-    return getLengthValidationError(field);
+  get passwordValidationError() {
+    return getLengthValidationError(Field.Password);
   }
-
 }

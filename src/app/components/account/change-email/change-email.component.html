@@ -1,0 +1,16 @@
+<mat-card>
+  <div class="form-card form-container">
+    <h2>Email</h2>
+    <form class="form-container" [formGroup]="form" (ngSubmit)="changeEmail()">
+      <mat-form-field>
+        <input matInput [value]="email" type="email" formControlName="email" required>
+        <mat-error>Please enter a valid email address</mat-error>
+      </mat-form-field>
+      <br/>
+      <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid || submitted">
+        <mat-spinner *ngIf="submitted" diameter="32"></mat-spinner>
+        <span *ngIf="!submitted">Change Email</span>
+      </button>
+    </form>
+  </div>
+</mat-card>

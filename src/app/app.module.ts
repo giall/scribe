@@ -33,6 +33,9 @@ import { MagicLoginComponent } from './components/magic-login/magic-login.compon
 import { TokenLoginComponent } from './components/token-login/token-login.component';
 import { PasswordResetComponent } from './components/password-reset/password-reset.component';
 import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
+import { ChangeEmailComponent } from './components/account/change-email/change-email.component';
+import { ChangePasswordComponent } from './components/account/change-password/change-password.component';
+import { DeleteAccountComponent } from './components/account/delete-account/delete-account.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import { PasswordDialogComponent } from './components/password-dialog/password-d
     MagicLoginComponent,
     TokenLoginComponent,
     PasswordResetComponent,
-    PasswordDialogComponent
+    PasswordDialogComponent,
+    ChangeEmailComponent,
+    ChangePasswordComponent,
+    DeleteAccountComponent
   ],
   imports: [
     BrowserModule,
