@@ -30,6 +30,9 @@ import { EmailVerificationComponent } from './components/email-verification/emai
 import {MatBadgeModule} from '@angular/material/badge';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { MagicLoginComponent } from './components/magic-login/magic-login.component';
+import { TokenLoginComponent } from './components/token-login/token-login.component';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
+import { PasswordDialogComponent } from './components/password-dialog/password-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,10 @@ import { MagicLoginComponent } from './components/magic-login/magic-login.compon
     AccountComponent,
     EmailVerificationComponent,
     ForgotPasswordComponent,
-    MagicLoginComponent
+    MagicLoginComponent,
+    TokenLoginComponent,
+    PasswordResetComponent,
+    PasswordDialogComponent
   ],
   imports: [
     BrowserModule,

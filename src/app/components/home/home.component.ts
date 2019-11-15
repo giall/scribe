@@ -12,9 +12,10 @@ import { Theme } from 'src/app/models/theme';
 })
 export class HomeComponent implements OnInit {
 
+  emailVerificationRequired = false;
   theme$: Observable<Theme>;
   user$: Observable<User>;
-  
+
   constructor(private config: ConfigStore, private user: UserStore) { }
 
   ngOnInit() {

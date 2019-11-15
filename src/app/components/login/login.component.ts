@@ -39,7 +39,8 @@ export class LoginComponent implements OnInit {
     const options = this.form.value;
     this.log.info('Submitting login form:', options);
     this.authService.login(options).subscribe(
-      _ => {
+      user => {
+        this.user.set(user);
         this.alert.showSnackbar('Successfully logged in.');
         this.router.navigate(['/home']);
       },

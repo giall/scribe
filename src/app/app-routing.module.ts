@@ -10,6 +10,8 @@ import { UserGuard } from './guards/user/user.guard';
 import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
 import {MagicLoginComponent} from './components/magic-login/magic-login.component';
 import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
+import { PasswordResetComponent } from './components/password-reset/password-reset.component';
+import { TokenLoginComponent } from './components/token-login/token-login.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -18,7 +20,9 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent, canActivate: [UserGuard] },
   { path: 'verify', component: EmailVerificationComponent },
   { path: 'magic-login', component: MagicLoginComponent },
+  { path: 'token-login', component: TokenLoginComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
+  { path: 'password-reset', component: PasswordResetComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ];

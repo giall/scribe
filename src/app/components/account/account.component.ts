@@ -51,8 +51,20 @@ export class AccountComponent implements OnInit {
 
   changeEmail() {
     this.submitted.email = true;
-    const options = this.emailForm.value;
+    const options = {
+      ...this.emailForm.value
+    };
     this.log.info('Submitting changeEmail form:', options);
+    this.authService.changeEmail(options).subscribe(
+      _ => {
+        this.submitted.email = false;
+        this.alert.showSnackbar('Email changed successfully.');
+      },
+      err => {
+        this.submitted.email = false;
+        this.alert.showSnackbar(err.error);
+      }
+    );
   }
 
   changePassword() {
