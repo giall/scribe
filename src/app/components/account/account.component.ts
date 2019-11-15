@@ -8,6 +8,7 @@ import { getLengthValidationError, getMinMaxValidators } from 'src/app/utils/val
 import { Observable } from 'rxjs';
 import { User } from 'src/app/models/user';
 import { Action } from '../../models/action';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-account',
@@ -18,7 +19,8 @@ export class AccountComponent implements OnInit {
 
   submitted = {
     email: false,
-    password: false
+    password: false,
+    delete: false
   };
   user$: Observable<User>;
 
@@ -43,7 +45,7 @@ export class AccountComponent implements OnInit {
   });
 
   constructor(private log: LogService, private authService: AuthService,
-              private alert: AlertService, private user: UserStore) {
+              private alert: AlertService, private user: UserStore, private router: Router) {
   }
 
   ngOnInit() {
@@ -91,6 +93,26 @@ export class AccountComponent implements OnInit {
     );
   }
 
+  delete() {
+    this.alert.showPasswordDialog(Action.DeleteAccount, password => {
+      if (password) {
+        this.submitted.delete = true;
+        this.authService.deleteUser(password).subscribe(
+          _ => {
+            this.submitted.email = false;
+            this.user.clear();
+            this.alert.showSnackbar('Account deleted.');
+            this.router.navigate(['/home']);
+          },
+          err => {
+            this.submitted.delete = false;
+            this.alert.showSnackbar(err.error);
+          }
+        );
+      }
+    });
+  }
+
   get newPassword(): AbstractControl {
     return this.passwordForm.get('newPassword');
   }
@@ -103,5 +125,4 @@ export class AccountComponent implements OnInit {
     const samePassword = control.get('newPassword').value === control.get('oldPassword').value;
     return samePassword ? {samePassword: true} : null;
   }
-
 }

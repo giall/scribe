@@ -64,4 +64,8 @@ export class AuthService {
     return this.http.put('/api/user/password/reset', body, this.options);
   }
 
+  deleteUser(password: string) {
+    return this.http.put('/api/user/delete', {password}, this.options);
+  }
+
 }

@@ -15,7 +15,7 @@
         <input matInput [value]="(user$ | async).email" type="email" formControlName="email" required>
         <mat-error>Please enter a valid email address</mat-error>
       </mat-form-field>
-      <br />
+      <br/>
       <button mat-flat-button color="primary" type="submit" [disabled]="!emailForm.valid || submitted.email">
         <mat-spinner *ngIf="submitted.email" diameter="32"></mat-spinner>
         <span *ngIf="!submitted.email">Change Email</span>
@@ -30,22 +30,36 @@
     <form class="form-container" [formGroup]="passwordForm" (ngSubmit)="changePassword()">
       <mat-form-field>
         <input matInput placeholder="Current password" type="password" minlength="8" maxlength="20"
-          formControlName="oldPassword" required>
+               formControlName="oldPassword" required>
       </mat-form-field>
-      <br />
+      <br/>
       <mat-form-field>
         <input matInput placeholder="New password" type="password" minlength="8" maxlength="20"
-          formControlName="newPassword" required>
+               formControlName="newPassword" required>
         <mat-error *ngIf="newPassword.errors?.minlength">{{getLengthValidationError('password')}}
         </mat-error>
       </mat-form-field>
-      <mat-error *ngIf="(passwordForm.dirty || passwordForm.touched) && passwordForm.errors?.samePassword">Current and new password cannot be the
-        same</mat-error>
-      <br />
+      <mat-error *ngIf="(passwordForm.dirty || passwordForm.touched) && passwordForm.errors?.samePassword">Current and
+        new password cannot be the
+        same
+      </mat-error>
+      <br/>
       <button mat-flat-button color="primary" type="submit" [disabled]="!passwordForm.valid || submitted.password">
         <mat-spinner *ngIf="submitted.password" diameter="32"></mat-spinner>
         <span *ngIf="!submitted.password">Change Password</span>
       </button>
     </form>
+  </div>
+</mat-card>
+
+<mat-card>
+  <div class="form-card form-container">
+    <h2>Delete account</h2>
+    <span>Delete your account and all data associated with it.</span>
+    <br/>
+    <button mat-flat-button color="warn" (click)="delete()">
+      <mat-spinner *ngIf="submitted.delete" diameter="32"></mat-spinner>
+      <span *ngIf="!submitted.delete">Delete</span>
+    </button>
   </div>
 </mat-card>
