@@ -30,6 +30,14 @@ export class UserStore {
     this.user.next(user);
   }
 
+  email(email: string) {
+    this.log.info('Changing user email to:', email);
+    this.user.next({
+      ...this.user.getValue(),
+      email
+    });
+  }
+
   clear() {
     this.log.info('Clearing user from store');
     this.user.next(undefined);

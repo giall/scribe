@@ -1,3 +1,5 @@
 export enum Action {
-  LogOut = 'log out'
+  LogOut = 'Log out',
+  ChangeEmail = 'Change email',
+  DeleteAccount = 'Delete account'
 }

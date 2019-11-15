@@ -3,13 +3,15 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Action } from '../../models/action';
 import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
+import { PasswordDialogComponent } from '../../components/password-dialog/password-dialog.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AlertService {
 
-  constructor(private dialog: MatDialog, private snackBar: MatSnackBar) { }
+  constructor(private dialog: MatDialog, private snackBar: MatSnackBar) {
+  }
 
   showSnackbar(text: string) {
     this.snackBar.open(text, 'Close', {
@@ -17,14 +19,25 @@ export class AlertService {
     });
   }
 
-  showConfirmationDialog(action: Action, callback: Function) {
+  showConfirmationDialog(action: Action, callback: () => void) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '300px',
-      data: { action }
+      data: {action}
     });
-
     dialogRef.afterClosed().subscribe((result: boolean) => {
-      if (result) callback();
+      if (result) {
+        callback();
+      }
+    });
+  }
+
+  showPasswordDialog(action: Action, callback: (password: string) => void) {
+    const dialogRef = this.dialog.open(PasswordDialogComponent, {
+      width: '300px',
+      data: {action}
+    });
+    dialogRef.afterClosed().subscribe((password: string) => {
+      callback(password);
     });
   }
 }

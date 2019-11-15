@@ -1,12 +1,13 @@
-import {Component, OnInit} from '@angular/core';
-import {Validators, FormControl, FormGroup, AbstractControl, ValidatorFn} from '@angular/forms';
-import {LogService} from 'src/app/services/log/log.service';
-import {AlertService} from 'src/app/services/alert/alert.service';
-import {AuthService} from 'src/app/services/auth/auth.service';
-import {UserStore} from 'src/app/stores/user/user.store';
-import {getLengthValidationError, getMinMaxValidators} from 'src/app/utils/validation.util';
-import {Observable} from 'rxjs';
-import {User} from 'src/app/models/user';
+import { Component, OnInit } from '@angular/core';
+import { Validators, FormControl, FormGroup, AbstractControl, ValidatorFn } from '@angular/forms';
+import { LogService } from 'src/app/services/log/log.service';
+import { AlertService } from 'src/app/services/alert/alert.service';
+import { AuthService } from 'src/app/services/auth/auth.service';
+import { UserStore } from 'src/app/stores/user/user.store';
+import { getLengthValidationError, getMinMaxValidators } from 'src/app/utils/validation.util';
+import { Observable } from 'rxjs';
+import { User } from 'src/app/models/user';
+import { Action } from '../../models/action';
 
 @Component({
   selector: 'app-account',
@@ -50,21 +51,28 @@ export class AccountComponent implements OnInit {
   }
 
   changeEmail() {
-    this.submitted.email = true;
-    const options = {
-      ...this.emailForm.value
-    };
-    this.log.info('Submitting changeEmail form:', options);
-    this.authService.changeEmail(options).subscribe(
-      _ => {
-        this.submitted.email = false;
-        this.alert.showSnackbar('Email changed successfully.');
-      },
-      err => {
-        this.submitted.email = false;
-        this.alert.showSnackbar(err.error);
+    this.alert.showPasswordDialog(Action.ChangeEmail, password => {
+      if (password) {
+        this.submitted.email = true;
+        const email = this.emailForm.value.email;
+        const options = {
+          email,
+          password
+        };
+        this.log.info('Submitting changeEmail form:', options);
+        this.authService.changeEmail(options).subscribe(
+          _ => {
+            this.submitted.email = false;
+            this.user.email(email);
+            this.alert.showSnackbar('Email changed successfully.');
+          },
+          err => {
+            this.submitted.email = false;
+            this.alert.showSnackbar(err.error);
+          }
+        );
       }
-    );
+    });
   }
 
   changePassword() {

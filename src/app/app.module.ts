@@ -72,7 +72,8 @@ import { PasswordDialogComponent } from './components/password-dialog/password-d
     MatBadgeModule
   ],
   entryComponents: [
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    PasswordDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
