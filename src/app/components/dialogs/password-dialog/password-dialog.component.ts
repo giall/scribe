@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { ConfirmationDialogComponent, DialogData } from '../confirmation-dialog/confirmation-dialog.component';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { getMinMaxValidators, getLengthValidationError, Field } from '../../utils/validation.util';
+import { getMinMaxValidators, getLengthValidationError, Field } from '../../../utils/validation.util';
 
 @Component({
   selector: 'app-password-dialog',

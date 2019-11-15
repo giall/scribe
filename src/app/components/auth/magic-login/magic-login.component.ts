@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { LogService } from '../../services/log/log.service';
-import { AuthService } from '../../services/auth/auth.service';
-import { AlertService } from '../../services/alert/alert.service';
-import { UserStore } from '../../stores/user/user.store';
+import { LogService } from '../../../services/log/log.service';
+import { AuthService } from '../../../services/auth/auth.service';
+import { AlertService } from '../../../services/alert/alert.service';
+import { UserStore } from '../../../stores/user/user.store';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrls: ['./forgot-password.component.css']
+  selector: 'app-magic-login',
+  templateUrl: './magic-login.component.html',
+  styleUrls: ['./magic-login.component.css']
 })
-export class ForgotPasswordComponent implements OnInit {
+export class MagicLoginComponent implements OnInit {
 
   submitted = false;
 
@@ -32,10 +32,10 @@ export class ForgotPasswordComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
     const options = this.form.value;
-    this.log.info('Submitting password reset form:', options);
-    this.authService.forgotPassword(options).subscribe(
+    this.log.info('Submitting magic login form:', options);
+    this.authService.emailMagicLogin(options).subscribe(
       _ => {
-        this.alert.showSnackbar('Password reset email was sent.');
+        this.alert.showSnackbar('One time login email was sent.');
         this.router.navigate(['/home']);
       },
       err => {
@@ -44,5 +44,4 @@ export class ForgotPasswordComponent implements OnInit {
         this.alert.showSnackbar(err.error);
       });
   }
-
 }

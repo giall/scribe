@@ -1,10 +1,10 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Action } from '../../../models/action';
-import { AlertService } from '../../../services/alert/alert.service';
-import { LogService } from '../../../services/log/log.service';
-import { AuthService } from '../../../services/auth/auth.service';
-import { UserStore } from '../../../stores/user/user.store';
+import { Action } from '../../../../models/action';
+import { AlertService } from '../../../../services/alert/alert.service';
+import { LogService } from '../../../../services/log/log.service';
+import { AuthService } from '../../../../services/auth/auth.service';
+import { UserStore } from '../../../../stores/user/user.store';
 
 @Component({
   selector: 'app-change-email',

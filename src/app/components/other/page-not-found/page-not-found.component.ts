@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfigStore } from '../../stores/config/config.store';
+import { ConfigStore } from '../../../stores/config/config.store';
 import { Observable } from 'rxjs';
 import { Theme } from 'src/app/models/theme';
 

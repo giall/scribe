@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
-import { getMinMaxValidators, getLengthValidationError, Field } from '../../../utils/validation.util';
-import { AlertService } from '../../../services/alert/alert.service';
-import { LogService } from '../../../services/log/log.service';
-import { AuthService } from '../../../services/auth/auth.service';
+import { getMinMaxValidators, getLengthValidationError, Field } from '../../../../utils/validation.util';
+import { AlertService } from '../../../../services/alert/alert.service';
+import { LogService } from '../../../../services/log/log.service';
+import { AuthService } from '../../../../services/auth/auth.service';
 
 @Component({
   selector: 'app-change-password',

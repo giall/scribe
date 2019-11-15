@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
-import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { RegisterComponent } from './components/register/register.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { HomeComponent } from './components/pages/home/home.component';
+import { PageNotFoundComponent } from './components/other/page-not-found/page-not-found.component';
+import { RegisterComponent } from './components/auth/register/register.component';
 import { GuestGuard } from './guards/guest/guest.guard';
-import { AccountComponent } from './components/account/account.component';
+import { AccountComponent } from './components/pages/account/account.component';
 import { UserGuard } from './guards/user/user.guard';
-import { EmailVerificationComponent } from './components/email-verification/email-verification.component';
-import {MagicLoginComponent} from './components/magic-login/magic-login.component';
-import {ForgotPasswordComponent} from './components/forgot-password/forgot-password.component';
-import { PasswordResetComponent } from './components/password-reset/password-reset.component';
-import { TokenLoginComponent } from './components/token-login/token-login.component';
+import { EmailVerificationComponent } from './components/auth/email-verification/email-verification.component';
+import {MagicLoginComponent} from './components/auth/magic-login/magic-login.component';
+import {ForgotPasswordComponent} from './components/auth/forgot-password/forgot-password.component';
+import { PasswordResetComponent } from './components/auth/password-reset/password-reset.component';
+import { TokenLoginComponent } from './components/auth/token-login/token-login.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },

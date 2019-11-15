@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { AuthService } from '../../services/auth/auth.service';
-import { AlertService } from '../../services/alert/alert.service';
+import { AuthService } from '../../../services/auth/auth.service';
+import { AlertService } from '../../../services/alert/alert.service';
 import { first, map } from 'rxjs/operators';
-import { UserStore } from '../../stores/user/user.store';
+import { UserStore } from '../../../stores/user/user.store';
 
 @Component({
   selector: 'app-token-login',

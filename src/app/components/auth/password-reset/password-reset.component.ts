@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { AuthService } from '../../services/auth/auth.service';
-import { AlertService } from '../../services/alert/alert.service';
+import { AuthService } from '../../../services/auth/auth.service';
+import { AlertService } from '../../../services/alert/alert.service';
 import { first, map } from 'rxjs/operators';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { getMinMaxValidators, getLengthValidationError, Field } from 'src/app/utils/validation.util';
-import { LogService } from '../../services/log/log.service';
+import { LogService } from '../../../services/log/log.service';
 
 @Component({
   selector: 'app-password-reset',

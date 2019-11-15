@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Action } from '../../models/action';
-import { ConfirmationDialogComponent } from '../../components/confirmation-dialog/confirmation-dialog.component';
-import { PasswordDialogComponent } from '../../components/password-dialog/password-dialog.component';
+import { ConfirmationDialogComponent } from '../../components/dialogs/confirmation-dialog/confirmation-dialog.component';
+import { PasswordDialogComponent } from '../../components/dialogs/password-dialog/password-dialog.component';
 
 @Injectable({
   providedIn: 'root'
