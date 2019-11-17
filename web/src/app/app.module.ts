@@ -36,6 +36,7 @@ import { PasswordDialogComponent } from './components/dialogs/password-dialog/pa
 import { ChangeEmailComponent } from './components/pages/account/change-email/change-email.component';
 import { ChangePasswordComponent } from './components/pages/account/change-password/change-password.component';
 import { DeleteAccountComponent } from './components/pages/account/delete-account/delete-account.component';
+import { NotesComponent } from './components/pages/notes/notes.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { DeleteAccountComponent } from './components/pages/account/delete-accoun
     PasswordDialogComponent,
     ChangeEmailComponent,
     ChangePasswordComponent,
-    DeleteAccountComponent
+    DeleteAccountComponent,
+    NotesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,11 @@
+mat-card-actions {
+  text-align: right;
+}
+
+.fab {
+  background-color: #E64A19;
+  position: fixed;
+  left: 50%;
+  bottom: 56px;
+  margin-left: -24px;
+}

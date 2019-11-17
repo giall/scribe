@@ -12,9 +12,11 @@ import {MagicLoginComponent} from './components/auth/magic-login/magic-login.com
 import {ForgotPasswordComponent} from './components/auth/forgot-password/forgot-password.component';
 import { PasswordResetComponent } from './components/auth/password-reset/password-reset.component';
 import { TokenLoginComponent } from './components/auth/token-login/token-login.component';
+import { NotesComponent } from './components/pages/notes/notes.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
+  { path: 'notes', component: NotesComponent },
   { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [GuestGuard] },
   { path: 'account', component: AccountComponent, canActivate: [UserGuard] },

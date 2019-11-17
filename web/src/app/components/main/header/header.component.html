@@ -7,8 +7,11 @@
   <button *ngIf="!(isLoggedIn | async)" routerLink="/register" mat-button>
     Register
   </button>
+  <button *ngIf="(isLoggedIn | async)" routerLink="/notes" mat-button>
+    Notes
+  </button>
   <button *ngIf="(isLoggedIn | async)" routerLink="/account" mat-button>
-    My Account
+    Account
   </button>
   <button *ngIf="(isLoggedIn | async)" (click)="logOut()" mat-button>
     Log Out

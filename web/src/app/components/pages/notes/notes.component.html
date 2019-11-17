@@ -1,0 +1,14 @@
+<mat-card *ngFor="let note of notes">
+  <mat-card-content>
+    <h2>{{note.title}}</h2>
+    <p>{{note.content}}</p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>DELETE</button>
+    <button mat-button>EDIT</button>
+  </mat-card-actions>
+</mat-card>
+
+<button class="fab" mat-fab aria-label="add note">
+  <mat-icon>edit</mat-icon>
+</button>

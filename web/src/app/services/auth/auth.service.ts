@@ -65,4 +65,8 @@ export class AuthService {
     return this.http.put('/api/user/delete', {password}, this.options);
   }
 
+  private url(endpoint: string) {
+    return `${environment.url.auth}/api/${endpoint}`;
+  }
+
 }
