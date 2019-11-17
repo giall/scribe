@@ -1,6 +1,11 @@
 <mat-card>
   <div class="form-card form-container">
-    <h2>Email</h2>
+    <h2>
+      Email
+      <mat-chip-list *ngIf="verified" class="verified">
+        <mat-chip color="accent" selected>verified</mat-chip>
+      </mat-chip-list>
+    </h2>
     <form class="form-container" [formGroup]="form" (ngSubmit)="changeEmail()">
       <mat-form-field>
         <input matInput [value]="email" type="email" formControlName="email" required>

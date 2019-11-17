@@ -15,6 +15,10 @@ export class ChangeEmailComponent implements OnInit {
 
   @Input()
   email: string;
+
+  @Input()
+  verified: boolean;
+
   form: FormGroup;
   submitted = false;
 

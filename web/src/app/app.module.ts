@@ -23,11 +23,11 @@ import { MatInputModule } from '@angular/material/input';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from './components/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { AccountComponent } from './components/pages/account/account.component';
 import { EmailVerificationComponent } from './components/auth/email-verification/email-verification.component';
-import {MatBadgeModule} from '@angular/material/badge';
+import { MatBadgeModule } from '@angular/material/badge';
 import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 import { MagicLoginComponent } from './components/auth/magic-login/magic-login.component';
 import { TokenLoginComponent } from './components/auth/token-login/token-login.component';
@@ -37,6 +37,7 @@ import { ChangeEmailComponent } from './components/pages/account/change-email/ch
 import { ChangePasswordComponent } from './components/pages/account/change-password/change-password.component';
 import { DeleteAccountComponent } from './components/pages/account/delete-account/delete-account.component';
 import { NotesComponent } from './components/pages/notes/notes.component';
+import { MatChipsModule } from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -77,7 +78,8 @@ import { NotesComponent } from './components/pages/notes/notes.component';
     MatSnackBarModule,
     MatProgressSpinnerModule,
     MatDialogModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatChipsModule
   ],
   entryComponents: [
     ConfirmationDialogComponent,
@@ -86,4 +88,5 @@ import { NotesComponent } from './components/pages/notes/notes.component';
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

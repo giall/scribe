@@ -7,7 +7,7 @@
   </div>
 </mat-card>
 
-<app-change-email [email]="(user$ | async)?.email"></app-change-email>
+<app-change-email [email]="(user$ | async)?.email" [verified]="(user$ | async)?.verified"></app-change-email>
 
 <app-change-password></app-change-password>
 

@@ -8,8 +8,8 @@ import { GuestGuard } from './guards/guest/guest.guard';
 import { AccountComponent } from './components/pages/account/account.component';
 import { UserGuard } from './guards/user/user.guard';
 import { EmailVerificationComponent } from './components/auth/email-verification/email-verification.component';
-import {MagicLoginComponent} from './components/auth/magic-login/magic-login.component';
-import {ForgotPasswordComponent} from './components/auth/forgot-password/forgot-password.component';
+import { MagicLoginComponent } from './components/auth/magic-login/magic-login.component';
+import { ForgotPasswordComponent } from './components/auth/forgot-password/forgot-password.component';
 import { PasswordResetComponent } from './components/auth/password-reset/password-reset.component';
 import { TokenLoginComponent } from './components/auth/token-login/token-login.component';
 import { NotesComponent } from './components/pages/notes/notes.component';
@@ -38,4 +38,5 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
