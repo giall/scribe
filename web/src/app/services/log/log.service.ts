@@ -10,7 +10,7 @@ export class LogService {
 
   info(...args: any[]) {
     if (!environment.production) {
-      console.info(...args);
+      console.log(...args);
     }
   }
 
