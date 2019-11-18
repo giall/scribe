@@ -29,8 +29,7 @@ export class ChangeEmailComponent implements OnInit {
   ngOnInit() {
     this.form = new FormGroup({
       email: new FormControl(
-        this.email,
-        [Validators.required, Validators.email, this.sameEmailValidator(this.email)],
+        this.email
       ),
     });
   }
@@ -38,32 +37,29 @@ export class ChangeEmailComponent implements OnInit {
   changeEmail() {
     this.alert.showPasswordDialog(Action.ChangeEmail, password => {
       if (password) {
-        this.submitted = true;
         const email = this.form.value.email;
-        const options = {
-          email,
-          password
-        };
-        this.log.info('Submitting changeEmail form:', options);
-        this.auth.changeEmail(options).subscribe(
-          _ => {
-            this.submitted = false;
-            this.user.email(email);
-            this.alert.showSnackbar('Email changed successfully.');
-          },
-          err => {
-            this.submitted = false;
-            this.alert.showSnackbar(err.error);
-          }
-        );
+        if (email !== this.email) {
+          this.submitted = true;
+          const options = {
+            email,
+            password
+          };
+          this.log.info('Submitting changeEmail form:', options);
+          this.auth.changeEmail(options).subscribe(
+            _ => {
+              this.submitted = false;
+              this.user.email(email);
+              this.alert.showSnackbar('Email changed successfully.');
+            },
+            err => {
+              this.submitted = false;
+              this.alert.showSnackbar(err.error);
+            }
+          );
+        } else {
+          this.alert.showSnackbar('Email is the same as current one.');
+        }
       }
     });
-  }
-
-  sameEmailValidator(email) {
-    return function validator(control: AbstractControl): { [key: string]: any } | null {
-      const newEmail = control.value;
-      return email === newEmail ? {sameEmail: true} : null;
-    };
   }
 }
