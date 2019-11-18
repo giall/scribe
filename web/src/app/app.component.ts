@@ -20,13 +20,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.config.theme.subscribe((theme: Theme) => this.classes = `wrapper mat-typography ${theme}`);
-    this.log.info('App started; attempting to refresh session...');
-    this.auth.refresh().subscribe((user: User) => {
-      this.log.info('Tokens refreshed and user login successful.');
-      this.user.set(user);
-    },
-    err => {
-      this.log.error(err);
-    });
+    if (this.config.rememberMe) {
+      this.log.info('Remember Me option set; attempting to refresh session...');
+      this.auth.refresh().subscribe((user: User) => {
+          this.log.info('Tokens refreshed and user login successful.');
+          this.user.set(user);
+        },
+        err => {
+          this.log.error(err);
+        });
+    }
   }
 }

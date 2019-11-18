@@ -8,10 +8,10 @@ import { ConfigStore } from 'src/app/stores/config/config.store';
 })
 export class FooterComponent {
 
-  constructor(private themeService: ConfigStore) { }
+  constructor(private config: ConfigStore) { }
 
   toggleTheme() {
-    this.themeService.toggle();
+    this.config.toggleTheme();
   }
 
 }
