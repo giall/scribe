@@ -20,7 +20,7 @@ export class StorageService {
 
   set(key: string, value: string) {
     try {
-      this.log.info(`Storage.set: key=${key}l value=${value}`);
+      this.log.info(`Storage.set: key=${key} value=${value}`);
       this.storage.setItem(key, value);
     } catch (err) {
       this.log.error(err);

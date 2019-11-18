@@ -17,7 +17,11 @@ export class ConfigStore {
   }
 
   get rememberMe(): boolean {
-    return !!this.storage.get(REMEMBER_ME);
+    return this.storage.get(REMEMBER_ME) === 'true';
+  }
+
+  set rememberMe(value: boolean) {
+    this.storage.set(REMEMBER_ME, `${value}`);
   }
 
   get theme(): Observable<Theme> {

@@ -13,6 +13,9 @@
         <mat-error>{{passwordValidationError}}</mat-error>
       </mat-form-field>
       <br/>
+      <div class="remember-me">
+        <mat-checkbox formControlName="rememberMe">Remember me</mat-checkbox>
+      </div>
       <button mat-flat-button color="primary" type="submit" [disabled]="!form.valid || submitted">
         <mat-spinner *ngIf="submitted" diameter="32"></mat-spinner>
         <span *ngIf="!submitted">Log In</span>

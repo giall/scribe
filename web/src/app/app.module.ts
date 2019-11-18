@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { LoginFormComponent } from './components/auth/login/login-form/login-form.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoginComponent } from './components/auth/login/login.component';
 import { PageNotFoundComponent } from './components/other/page-not-found/page-not-found.component';
 import { HomeComponent } from './components/pages/home/home.component';
@@ -38,6 +38,7 @@ import { ChangePasswordComponent } from './components/pages/account/change-passw
 import { DeleteAccountComponent } from './components/pages/account/delete-account/delete-account.component';
 import { NotesComponent } from './components/pages/notes/notes.component';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { MatChipsModule } from '@angular/material/chips';
     MatProgressSpinnerModule,
     MatDialogModule,
     MatBadgeModule,
-    MatChipsModule
+    MatChipsModule,
+    MatCheckboxModule
   ],
   entryComponents: [
     ConfirmationDialogComponent,

@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserStore } from 'src/app/stores/user/user.store';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert/alert.service';
+import { ConfigStore } from '../../../stores/config/config.store';
 
 @Component({
   selector: 'app-login',
@@ -24,10 +25,13 @@ export class LoginComponent implements OnInit {
     password: new FormControl(
       '',
       [Validators.required, ...getMinMaxValidators(Field.Password)]
+    ),
+    rememberMe: new FormControl(
+      false
     )
   });
 
-  constructor(private log: LogService, private authService: AuthService,
+  constructor(private log: LogService, private authService: AuthService, private config: ConfigStore,
               private alert: AlertService, private user: UserStore, private router: Router) {
   }
 
@@ -40,6 +44,7 @@ export class LoginComponent implements OnInit {
     this.log.info('Submitting login form:', options);
     this.authService.login(options).subscribe(
       user => {
+        this.config.rememberMe = options.rememberMe;
         this.user.set(user);
         this.alert.showSnackbar('Successfully logged in.');
         this.router.navigate(['/home']);
