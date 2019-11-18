@@ -4,8 +4,8 @@
     <span>Delete your account and all data associated with it.</span>
     <br/>
     <button mat-flat-button color="warn" (click)="delete()">
-      <mat-spinner *ngIf="submitted.delete" diameter="32"></mat-spinner>
-      <span *ngIf="!submitted.delete">Delete</span>
+      <mat-spinner *ngIf="submitted" diameter="32"></mat-spinner>
+      <span *ngIf="!submitted">Delete</span>
     </button>
   </div>
 </mat-card>

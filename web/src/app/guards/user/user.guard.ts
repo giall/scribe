@@ -8,12 +8,12 @@ import { UserStore } from 'src/app/stores/user/user.store';
 })
 export class UserGuard implements CanActivate {
 
-  constructor(private user: UserStore) { }
+  constructor(private user: UserStore) {
+  }
 
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
     return this.user.isLoggedIn;
   }
-  
 }

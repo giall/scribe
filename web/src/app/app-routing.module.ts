@@ -15,7 +15,7 @@ import { TokenLoginComponent } from './components/auth/token-login/token-login.c
 import { NotesComponent } from './components/pages/notes/notes.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
+  { path: '', component: HomeComponent },
   { path: 'notes', component: NotesComponent },
   { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [GuestGuard] },
@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'token-login', component: TokenLoginComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   { path: 'password-reset', component: PasswordResetComponent },
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: 'home', redirectTo: '', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent },
 ];
 

@@ -2,7 +2,7 @@
   <div class="form-card form-container">
     <h2>Username</h2>
     <mat-form-field>
-      <input matInput [placeholder]="(user$ | async).username" type="text" disabled>
+      <input matInput [placeholder]="(user$ | async)?.username" type="text" disabled>
     </mat-form-field>
   </div>
 </mat-card>
