@@ -26,12 +26,12 @@ export class HeaderComponent implements OnInit {
   logOut(): void {
     this.alert.showConfirmationDialog(Action.LogOut, () => {
       this.config.rememberMe = false;
-      this.auth.logout().subscribe(_ => {
+      this.auth.logout().subscribe((res: any) => {
         if (this.router.url === '/account') {
           this.router.navigate(['/home']);
         }
         this.user.clear();
-        this.alert.showSnackbar('Successfully logged out.');
+        this.alert.showSnackbar(res.message);
       });
     });
   }

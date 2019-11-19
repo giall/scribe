@@ -34,8 +34,8 @@ export class MagicLoginComponent implements OnInit {
     const options = this.form.value;
     this.log.info('Submitting magic login form:', options);
     this.authService.emailMagicLogin(options).subscribe(
-      _ => {
-        this.alert.showSnackbar('One time login email was sent.');
+      (res: any) => {
+        this.alert.showSnackbar(res.message);
         this.router.navigate(['/home']);
       },
       err => {

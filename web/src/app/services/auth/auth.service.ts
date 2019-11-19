@@ -6,7 +6,7 @@ import { User } from '../../models/user';
 import { Observable, of, throwError } from 'rxjs';
 import { LogService } from '../log/log.service';
 import { url } from '../../utils/auth.util';
-import { catchError, map, mergeMap, retryWhen, tap } from 'rxjs/operators';
+import { catchError, mergeMap, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ export class AuthService {
     this.log.info('Authentication API url:', environment.url.auth);
   }
 
-  login(body: { email: string; password: string }): Observable<User> {
+  login(body: { email: string; password: string }) {
     return this.http.post(url('auth/login'), body, {
       withCredentials: true
     }) as Observable<User>;
@@ -37,8 +37,7 @@ export class AuthService {
 
   logout() {
     return this.http.post(url('auth/logout'), {}, {
-      withCredentials: true,
-      responseType: 'text'
+      withCredentials: true
     });
   }
 
@@ -57,8 +56,7 @@ export class AuthService {
 
   emailMagicLogin(body: { email: string }) {
     return this.http.post(url('auth/magic.login/request'), body, {
-      withCredentials: true,
-      responseType: 'text'
+      withCredentials: true
     });
   }
 

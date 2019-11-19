@@ -51,8 +51,8 @@ export class PasswordResetComponent implements OnInit, OnDestroy {
       this.log.info('Submitting password reset form:', options);
       this.subscription = this.auth.passwordReset(options)
         .subscribe(
-          _ => {
-            this.alert.showSnackbar('Password changed.');
+          (res: any) => {
+            this.alert.showSnackbar(res.message);
             this.router.navigate(['/login']);
           },
           err => {

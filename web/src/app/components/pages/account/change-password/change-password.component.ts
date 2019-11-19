@@ -45,9 +45,9 @@ export class ChangePasswordComponent implements OnInit {
     const options = this.form.value;
     this.log.info('Submitting changePassword form:', options);
     this.auth.passwordChange(options).subscribe(
-      _ => {
+      (res: any) => {
         this.submitted = false;
-        this.alert.showSnackbar('Password changed successfully.');
+        this.alert.showSnackbar(res.message);
       },
       err => {
         this.submitted = false;

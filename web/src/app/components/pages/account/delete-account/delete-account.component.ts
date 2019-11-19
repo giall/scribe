@@ -22,10 +22,10 @@ export class DeleteAccountComponent {
       if (password) {
         this.submitted = true;
         this.auth.deleteUser(password).subscribe(
-          _ => {
+          (res: any) => {
             this.submitted = false;
             this.user.clear();
-            this.alert.showSnackbar('Account deleted.');
+            this.alert.showSnackbar(res.message);
             this.router.navigate(['/home']);
           },
           err => {

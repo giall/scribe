@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { getMinMaxValidators, getLengthValidationError, Field } from 'src/app/utils/validation.util';
+import { Field, getLengthValidationError, getMinMaxValidators } from 'src/app/utils/validation.util';
 import { LogService } from 'src/app/services/log/log.service';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { UserStore } from 'src/app/stores/user/user.store';
@@ -43,10 +43,10 @@ export class LoginComponent implements OnInit {
     const options = this.form.value;
     this.log.info('Submitting login form:', options);
     this.authService.login(options).subscribe(
-      user => {
+      (res: any) => {
         this.config.rememberMe = options.rememberMe;
-        this.user.set(user);
-        this.alert.showSnackbar('Successfully logged in.');
+        this.user.set(res.user);
+        this.alert.showSnackbar(res.message);
         this.router.navigate(['/home']);
       },
       err => {

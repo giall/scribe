@@ -26,8 +26,8 @@ export class EmailVerificationComponent implements OnInit, OnDestroy {
     token$.subscribe((token: string) => {
       this.subscription = this.auth.verifyEmail(token)
         .subscribe(
-          _ => {
-            this.alert.showSnackbar('Your email has been verified!');
+          (res: any) => {
+            this.alert.showSnackbar(res.message);
             this.router.navigate(['/login']);
           },
           err => {

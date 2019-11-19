@@ -34,8 +34,8 @@ export class ForgotPasswordComponent implements OnInit {
     const options = this.form.value;
     this.log.info('Submitting password reset form:', options);
     this.authService.forgotPassword(options).subscribe(
-      _ => {
-        this.alert.showSnackbar('Password reset email was sent.');
+      (res: any) => {
+        this.alert.showSnackbar(res.message);
         this.router.navigate(['/home']);
       },
       err => {

@@ -27,9 +27,9 @@ export class TokenLoginComponent implements OnInit, OnDestroy {
     token$.subscribe((token: string) => {
       this.subscription = this.auth.magicLogin(token)
         .subscribe(
-          user => {
-            this.user.set(user);
-            this.alert.showSnackbar('Successfully logged in.');
+          (res: any) => {
+            this.user.set(res.user);
+            this.alert.showSnackbar(res.message);
             this.router.navigate(['/home']);
           },
           err => {

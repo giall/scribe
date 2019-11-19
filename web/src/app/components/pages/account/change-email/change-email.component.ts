@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Action } from '../../../../models/action';
 import { AlertService } from '../../../../services/alert/alert.service';
 import { LogService } from '../../../../services/log/log.service';
@@ -46,10 +46,10 @@ export class ChangeEmailComponent implements OnInit {
           };
           this.log.info('Submitting changeEmail form:', options);
           this.auth.changeEmail(options).subscribe(
-            _ => {
+            (res: any) => {
               this.submitted = false;
               this.user.email(email);
-              this.alert.showSnackbar('Email changed successfully.');
+              this.alert.showSnackbar(res.message);
             },
             err => {
               this.submitted = false;
