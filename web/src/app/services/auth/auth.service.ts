@@ -20,7 +20,7 @@ export class AuthService {
   login(body: { email: string; password: string }) {
     return this.http.post(url('auth/login'), body, {
       withCredentials: true
-    }) as Observable<User>;
+    });
   }
 
   register(body: { username: string; email: string; password: string }) {
@@ -50,7 +50,7 @@ export class AuthService {
   changeEmail(body: { email: string; password: string }) {
     return this.auth(this.http.put(url('user/email/change'), body, {
       withCredentials: true,
-      responseType: 'text'
+      responseType: 'json'
     }));
   }
 
@@ -70,26 +70,25 @@ export class AuthService {
     return this.auth(this.http.put(url('user/password/change'), body, {
       headers: new HttpHeaders({ 'content-type': 'application/json' }),
       withCredentials: true,
-      responseType: 'text'
+      responseType: 'json'
     }));
   }
 
   forgotPassword(body: { email: string }) {
     return this.http.post(url('user/password/reset/request'), body, {
-      responseType: 'text'
+      responseType: 'json'
     });
   }
 
   passwordReset(body: { newPassword: string; token: string }) {
     return this.http.put(url('user/password/reset'), body, {
-      responseType: 'text'
+      responseType: 'json'
     });
   }
 
   deleteUser(password: string) {
     return this.auth(this.http.put(url('user/delete'), { password }, {
-      withCredentials: true,
-      responseType: 'text'
+      withCredentials: true
     }));
   }
 
