@@ -1,0 +1,14 @@
+<mat-card>
+  <div class="form-card form-container">
+    <h2>Log out</h2>
+    <button mat-flat-button color="primary" (click)="logOut()">
+      <mat-spinner *ngIf="submitted.logOut" diameter="32"></mat-spinner>
+      <span *ngIf="!submitted.logOut">Log out</span>
+    </button>
+    <br/>
+    <button mat-flat-button color="accent" (click)="invalidate()">
+      <mat-spinner *ngIf="submitted.invalidate" diameter="32"></mat-spinner>
+      <span *ngIf="!submitted.invalidate">Log out of all devices</span>
+    </button>
+  </div>
+</mat-card>

@@ -1,5 +1,6 @@
 <div mat-dialog-content>
-  Are you sure you want to {{data.action | lowercase}}?
+  <span *ngIf="data.prompt">{{ data.prompt }}</span>
+  <span *ngIf="!data.prompt">Are you sure you want to {{ data.action | lowercase }}?</span>
 </div>
 <div mat-dialog-actions>
   <button color="primary" mat-button [mat-dialog-close]="true">Yes, {{data.action | lowercase}}</button>

@@ -19,9 +19,9 @@ export class AlertService {
     });
   }
 
-  showConfirmationDialog(action: Action, callback: () => void) {
+  showConfirmationDialog(action: Action, callback: () => void, prompt?: string, width?: string) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '300px',
+      width: width || '300px',
       data: {action}
     });
     dialogRef.afterClosed().subscribe((result: boolean) => {

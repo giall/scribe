@@ -41,6 +41,12 @@ export class AuthService {
     });
   }
 
+  invalidate() {
+    return this.http.post(url('auth/invalidate'), {}, {
+      withCredentials: true
+    });
+  }
+
   verifyEmail(token: string) {
     return this.http.put(url('user/email/verification'), { token }, {
       withCredentials: true

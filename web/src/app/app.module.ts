@@ -39,6 +39,7 @@ import { DeleteAccountComponent } from './components/pages/account/delete-accoun
 import { NotesComponent } from './components/pages/notes/notes.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { LogOutSessionsComponent } from './components/pages/account/log-out-sessions/log-out-sessions.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ChangeEmailComponent,
     ChangePasswordComponent,
     DeleteAccountComponent,
-    NotesComponent
+    NotesComponent,
+    LogOutSessionsComponent
   ],
   imports: [
     BrowserModule,
