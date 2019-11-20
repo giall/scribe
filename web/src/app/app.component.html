@@ -1,4 +1,4 @@
-<div [class]="classes">
+<div *ngIf="show" [class]="classes">
   <app-header></app-header>
   <div class="content">
     <router-outlet></router-outlet>

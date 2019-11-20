@@ -14,6 +14,7 @@ import {LogService} from './services/log/log.service';
 export class AppComponent implements OnInit {
   title = 'scribe';
   classes: string;
+  show = false;
 
   constructor(private config: ConfigStore, private auth: AuthService,
               private user: UserStore, private log: LogService) { }
@@ -28,7 +29,11 @@ export class AppComponent implements OnInit {
         },
         err => {
           this.log.error(err);
+        }, () => {
+          this.show = true;
         });
+    } else {
+      this.show = true;
     }
   }
 }
