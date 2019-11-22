@@ -33,7 +33,7 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(
       routes,
-      { enableTracing: !environment.tracing }
+      { enableTracing: environment.tracing }
     )
   ],
   exports: [RouterModule]

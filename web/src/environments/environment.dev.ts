@@ -2,6 +2,6 @@ export const environment = {
   production: false,
   tracing: false,
   url: {
-    auth: 'https://scribe-demo.appspot.com/api'
+    auth: 'https://us-central1-scribe-demo.cloudfunctions.net/hecate/api'
   }
 };
