@@ -3,8 +3,7 @@ import { ConfigStore } from './stores/config/config.store';
 import { Theme } from './models/theme';
 import { AuthService } from './services/auth/auth.service';
 import { UserStore } from './stores/user/user.store';
-import { User } from './models/user';
-import {LogService} from './services/log/log.service';
+import { LogService } from './services/log/log.service';
 
 @Component({
   selector: 'app-root',
@@ -26,10 +25,11 @@ export class AppComponent implements OnInit {
       this.auth.refresh().subscribe((res: any) => {
           this.log.info('Tokens refreshed and user login successful.');
           this.user.set(res.user);
+          this.show = true;
         },
         err => {
           this.log.error(err);
-        }, () => {
+          this.config.rememberMe = false;
           this.show = true;
         });
     } else {
