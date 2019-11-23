@@ -55,8 +55,7 @@ export class AuthService {
 
   changeEmail(body: { email: string; password: string }) {
     return this.auth(this.http.put(url('user/email/change'), body, {
-      withCredentials: true,
-      responseType: 'json'
+      withCredentials: true
     }));
   }
 
@@ -74,22 +73,16 @@ export class AuthService {
 
   passwordChange(body: { oldPassword: string; newPassword: string }) {
     return this.auth(this.http.put(url('user/password/change'), body, {
-      headers: new HttpHeaders({ 'content-type': 'application/json' }),
-      withCredentials: true,
-      responseType: 'json'
+      withCredentials: true
     }));
   }
 
   forgotPassword(body: { email: string }) {
-    return this.http.post(url('user/password/reset/request'), body, {
-      responseType: 'json'
-    });
+    return this.http.post(url('user/password/reset/request'), body);
   }
 
   passwordReset(body: { newPassword: string; token: string }) {
-    return this.http.put(url('user/password/reset'), body, {
-      responseType: 'json'
-    });
+    return this.http.put(url('user/password/reset'), body);
   }
 
   deleteUser(password: string) {
