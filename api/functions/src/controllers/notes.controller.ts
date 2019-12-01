@@ -43,7 +43,7 @@ export class NotesController extends KoaController {
   @Validate({
     type: 'json',
     body: {
-      id: Validator.Joi.string().required(),
+      id: Validator.Joi.string().max(24).required(),
       title: Validator.Joi.string().max(40),
       content: Validator.Joi.string().max(200)
     }
