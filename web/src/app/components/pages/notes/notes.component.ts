@@ -21,6 +21,24 @@ export class NotesComponent implements OnInit {
     this.notesService.list().subscribe(notes => this.notes = notes);
   }
 
+  add() {
+    this.alert.showNoteDialog('Add', null, (data: Partial<Note>) => {
+      if (data) {
+        this.log.info('Creating note: ', data);
+        this.notesService.create(data).subscribe(
+          (id: string) => {
+            const note = {
+              id,
+              ...data
+            } as Note;
+            this.notes.unshift(note);
+          },
+          err => this.alert.showSnackbar(err.error)
+        );
+      }
+    });
+  }
+
   edit(note: Note) {
     this.alert.showNoteDialog('Edit', note, (changes: Partial<Note>) => {
       this.log.info('Note dialog closed with: ', changes);

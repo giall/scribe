@@ -50,7 +50,7 @@ export class AlertService {
     });
   }
 
-  showNoteDialog(action: 'Add' | 'Edit', note: Note, callback: (data: Partial<Note>) => void) {
+  showNoteDialog(action: 'Add' | 'Edit', note: Note | undefined, callback: (data: Partial<Note>) => void) {
     const dialogRef = this.dialog.open(NoteDialogComponent, {
       width: '500px',
       data: { note, text: action }

@@ -8,7 +8,7 @@
   <br/>
   <span>You have no notes!</span>
   <br/>
-  <span>Click on the pencil button below to create one.</span>
+  <span>Click on the round button below to create one.</span>
 </mat-card>
 
 <mat-card *ngFor="let note of notes">
@@ -22,6 +22,6 @@
   </mat-card-actions>
 </mat-card>
 
-<button class="fab" mat-fab aria-label="add note">
-  <mat-icon>edit</mat-icon>
+<button (click)="add()" class="fab" mat-fab aria-label="add note">
+  <mat-icon>note_add</mat-icon>
 </button>
