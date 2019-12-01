@@ -8,7 +8,7 @@ export class Database {
   client: MongoClient;
 
   constructor(uri: string) {
-    this.name = properties.mongodb.name;
+    this.name = properties.mongodb.name as string;
     const options = {
       useNewUrlParser: true,
       useUnifiedTopology: true
