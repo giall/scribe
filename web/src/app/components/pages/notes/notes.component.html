@@ -1,10 +1,23 @@
+<mat-card *ngIf="!notes" class="spinner-card">
+  <mat-spinner diameter="48"></mat-spinner>
+  <span>Loading your notes...</span>
+</mat-card>
+
+<mat-card *ngIf="notes.length === 0" class="spinner-card">
+  <mat-icon>sentiment_dissatisfied</mat-icon>
+  <br/>
+  <span>You have no notes!</span>
+  <br/>
+  <span>Click on the pencil button below to create one.</span>
+</mat-card>
+
 <mat-card *ngFor="let note of notes">
   <mat-card-content>
     <h2>{{note.title}}</h2>
     <p>{{note.content}}</p>
   </mat-card-content>
   <mat-card-actions>
-    <button mat-button>DELETE</button>
+    <button (click)="delete(note)" mat-button>DELETE</button>
     <button mat-button>EDIT</button>
   </mat-card-actions>
 </mat-card>

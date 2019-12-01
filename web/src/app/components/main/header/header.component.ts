@@ -13,18 +13,19 @@ import { ConfigStore } from '../../../stores/config/config.store';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  isLoggedIn: Observable<boolean>;
+  isLoggedIn$: Observable<boolean>;
 
   constructor(private user: UserStore, private alert: AlertService, private config: ConfigStore,
               private auth: AuthService, private router: Router) {
   }
 
   ngOnInit() {
-    this.isLoggedIn = this.user.isLoggedIn;
+    this.isLoggedIn$ = this.user.isLoggedIn$;
   }
 
   logOut(): void {
-    this.alert.showConfirmationDialog(Action.LogOut, () => {
+    const action = Action.LogOut;
+    this.alert.showConfirmationDialog({action}, () => {
       this.config.rememberMe = false;
       this.auth.logout().subscribe((res: any) => {
         this.alert.showSnackbar(res.message);

@@ -14,8 +14,8 @@ import { Router } from '@angular/router';
 export class LogOutSessionsComponent {
 
   submitted = {
-    [Action.LogOut]: false,
-    [Action.LogOutAll]: false
+    [Action.LogOut.valueOf()]: false,
+    [Action.LogOutAll.valueOf()]: false
   };
 
   constructor(private user: UserStore, private alert: AlertService, private config: ConfigStore,
@@ -31,7 +31,8 @@ export class LogOutSessionsComponent {
   }
 
   private post(request, action: Action, prompt?: string) {
-    this.alert.showConfirmationDialog(action, () => {
+    const width = action === Action.LogOutAll ? '400px' : null;
+    this.alert.showConfirmationDialog({action, prompt, width}, () => {
       this.submitted[action] = true;
       this.config.rememberMe = false;
       request().subscribe((res: any) => {
@@ -43,6 +44,6 @@ export class LogOutSessionsComponent {
         this.router.navigate(['/home']);
         this.user.clear();
       });
-    }, prompt, action === Action.LogOutAll ? '400px' : null);
+    });
   }
 }

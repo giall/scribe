@@ -9,37 +9,37 @@ import { map } from 'rxjs/operators';
 })
 export class UserStore {
 
-  private user: BehaviorSubject<User>;
+  private user$: BehaviorSubject<User>;
 
   constructor(private log: LogService) {
-    this.user = new BehaviorSubject(undefined);
+    this.user$ = new BehaviorSubject(undefined);
   }
 
-  get details(): Observable<User> {
-    return this.user.asObservable();
+  get details$(): Observable<User> {
+    return this.user$.asObservable();
   }
 
-  get isLoggedIn(): Observable<boolean> {
-    return this.details.pipe(
+  get isLoggedIn$(): Observable<boolean> {
+    return this.details$.pipe(
       map(user => !!user)
     );
   }
 
   set(user: User) {
     this.log.info('Setting user to store:', user);
-    this.user.next(user);
+    this.user$.next(user);
   }
 
   email(email: string) {
     this.log.info('Changing user email to:', email);
-    this.user.next({
-      ...this.user.getValue(),
+    this.user$.next({
+      ...this.user$.getValue(),
       email
     });
   }
 
   clear() {
     this.log.info('Clearing user from store');
-    this.user.next(undefined);
+    this.user$.next(undefined);
   }
 }

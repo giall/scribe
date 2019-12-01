@@ -20,6 +20,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.theme$ = this.config.theme;
-    this.user$ = this.user.details;
+    this.user$ = this.user.details$;
   }
 }

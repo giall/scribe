@@ -9,3 +9,7 @@ mat-card-actions {
   bottom: 56px;
   margin-left: -24px;
 }
+
+.spinner-card {
+  text-align: center;
+}

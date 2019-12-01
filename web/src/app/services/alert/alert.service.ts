@@ -5,6 +5,12 @@ import { Action } from '../../models/action';
 import { ConfirmationDialogComponent } from '../../components/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { PasswordDialogComponent } from '../../components/dialogs/password-dialog/password-dialog.component';
 
+interface Options {
+  action: Action;
+  prompt?: string;
+  width?: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -19,10 +25,11 @@ export class AlertService {
     });
   }
 
-  showConfirmationDialog(action: Action, callback: () => void, prompt?: string, width?: string) {
+  showConfirmationDialog(options: Options, callback: () => void) {
+    const { action, prompt, width } = options;
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: width || '300px',
-      data: {action}
+      data: { action, prompt }
     });
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
@@ -34,7 +41,7 @@ export class AlertService {
   showPasswordDialog(action: Action, callback: (password: string) => void) {
     const dialogRef = this.dialog.open(PasswordDialogComponent, {
       width: '300px',
-      data: {action}
+      data: { action }
     });
     dialogRef.afterClosed().subscribe((password: string) => {
       callback(password);

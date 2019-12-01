@@ -14,6 +14,6 @@ export class UserGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> {
-    return this.user.isLoggedIn;
+    return this.user.isLoggedIn$;
   }
 }
