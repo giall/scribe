@@ -40,6 +40,7 @@ import { NotesComponent } from './components/pages/notes/notes.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LogOutSessionsComponent } from './components/pages/account/log-out-sessions/log-out-sessions.component';
+import { NoteDialogComponent } from './components/dialogs/note-dialog/note-dialog.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { LogOutSessionsComponent } from './components/pages/account/log-out-sess
     ChangePasswordComponent,
     DeleteAccountComponent,
     NotesComponent,
-    LogOutSessionsComponent
+    LogOutSessionsComponent,
+    NoteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -87,7 +89,8 @@ import { LogOutSessionsComponent } from './components/pages/account/log-out-sess
   ],
   entryComponents: [
     ConfirmationDialogComponent,
-    PasswordDialogComponent
+    PasswordDialogComponent,
+    NoteDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

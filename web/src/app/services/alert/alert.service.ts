@@ -4,6 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Action } from '../../models/action';
 import { ConfirmationDialogComponent } from '../../components/dialogs/confirmation-dialog/confirmation-dialog.component';
 import { PasswordDialogComponent } from '../../components/dialogs/password-dialog/password-dialog.component';
+import { Note } from '../../models/note';
+import { NoteDialogComponent } from '../../components/dialogs/note-dialog/note-dialog.component';
 
 interface Options {
   action: Action;
@@ -26,9 +28,9 @@ export class AlertService {
   }
 
   showConfirmationDialog(options: Options, callback: () => void) {
-    const { action, prompt, width } = options;
+    const { action, prompt } = options;
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: width || '300px',
+      width: action === Action.LogOutAll ? '400px' : '300px',
       data: { action, prompt }
     });
     dialogRef.afterClosed().subscribe((result: boolean) => {
@@ -45,6 +47,16 @@ export class AlertService {
     });
     dialogRef.afterClosed().subscribe((password: string) => {
       callback(password);
+    });
+  }
+
+  showNoteDialog(action: 'Add' | 'Edit', note: Note, callback: (data: Partial<Note>) => void) {
+    const dialogRef = this.dialog.open(NoteDialogComponent, {
+      width: '500px',
+      data: { note, text: action }
+    });
+    dialogRef.afterClosed().subscribe((data: Partial<Note>) => {
+      callback(data);
     });
   }
 }

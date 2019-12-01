@@ -15,7 +15,7 @@ export class AuthService {
 
   constructor(private http: HttpClient, private log: LogService) {
     this.log.info('Authentication API url:', environment.url.auth);
-    this.auth = retryWith(this.refresh, log);
+    this.auth = retryWith(this, log);
   }
 
   login(body: { email: string; password: string }) {

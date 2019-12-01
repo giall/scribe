@@ -20,11 +20,11 @@ export class NotesService {
 
   constructor(private http: HttpClient, private authService: AuthService, private log: LogService) {
     this.log.info('Authentication API url:', environment.url.auth);
-    this.auth = retryWith(authService.refresh, log);
+    this.auth = retryWith(authService, log);
   }
 
   list(): Observable<Note[]> {
-    return this.auth(this.http.get(url('/list'), {
+    return this.auth(this.http.get(url('list'), {
       withCredentials: true
     }).pipe(
       map((res: any) => res.notes)
@@ -32,7 +32,7 @@ export class NotesService {
   }
 
   create(note: Partial<Note>): Observable<string> {
-    return this.auth(this.http.post(url('/create'), note, {
+    return this.auth(this.http.post(url('create'), note, {
       withCredentials: true
     }).pipe(
       map((res: any) => res.id)
@@ -40,13 +40,13 @@ export class NotesService {
   }
 
   edit(note: Partial<Note>): Observable<void> {
-    return this.auth(this.http.put(url('/edit'), note, {
+    return this.auth(this.http.put(url('edit'), note, {
       withCredentials: true
     }));
   }
 
   delete(note: Partial<Note>): Observable<void> {
-    return this.auth(this.http.delete(url(`/delete/${note.id}`), {
+    return this.auth(this.http.delete(url(`delete/${note.id}`), {
       withCredentials: true
     }));
   }

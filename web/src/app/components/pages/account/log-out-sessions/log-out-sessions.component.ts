@@ -31,8 +31,7 @@ export class LogOutSessionsComponent {
   }
 
   private post(request, action: Action, prompt?: string) {
-    const width = action === Action.LogOutAll ? '400px' : null;
-    this.alert.showConfirmationDialog({action, prompt, width}, () => {
+    this.alert.showConfirmationDialog({action, prompt}, () => {
       this.submitted[action] = true;
       this.config.rememberMe = false;
       request().subscribe((res: any) => {

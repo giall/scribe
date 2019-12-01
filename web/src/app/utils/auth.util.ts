@@ -2,16 +2,17 @@ import { environment } from '../../environments/environment';
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, mergeMap, tap } from 'rxjs/operators';
 import { LogService } from '../services/log/log.service';
+import { AuthService } from '../services/auth/auth.service';
 
 function url(endpoint: string) {
   return `${environment.url.auth}/${endpoint}`;
 }
 
-function retryWith(refresh: () => Observable<any>, logService: LogService) {
+function retryWith(authService: AuthService, logService: LogService) {
   function handleAuthError(err) {
     if (err.status === 401) {
       logService.info('Unauthorized request; attempting to refresh tokens...');
-      return refresh();
+      return authService.refresh();
     } else {
       return throwError(err);
     }

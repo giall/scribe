@@ -1,0 +1,13 @@
+<form class="form-container" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <input matInput placeholder="Title" maxlength="40" formControlName="title" required>
+  </mat-form-field>
+  <mat-form-field>
+    <textarea matInput placeholder="Content" maxlength="200" formControlName="content"
+              matTextareaAutosize matAutosizeMinRows=3 matAutosizeMaxRows=5 required></textarea>
+  </mat-form-field>
+</form>
+<div mat-dialog-actions>
+  <button (click)="onSubmit()" [disabled]="!form.valid" color="primary" mat-button type="submit">{{text}}</button>
+  <button mat-button [mat-dialog-close]="null" cdkFocusInitial>Cancel</button>
+</div>
