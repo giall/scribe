@@ -239,6 +239,12 @@ describe('/delete', () => {
     expect(response.status).toEqual(404);
   });
 
+  test('Should  return internal server error if invalid ID', async () => {
+    const response = await request(server).delete(`/delete/asdfghjkl`)
+      .set('Cookie', cookie);
+    expect(response.status).toEqual(500);
+  });
+
   test('Should delete note', async () => {
     const response = await request(server).delete(`/delete/${noteId}`)
       .set('Cookie', cookie);

@@ -15,7 +15,7 @@ async function errorHandler(ctx: Context, next: Next) {
         } else if (err.name === 'ValidationError') {
             log.warn(err);
             ctx.status = 400;
-            ctx.message = 'Invalid input.';
+            ctx.body = 'Invalid input.';
         } else {
             log.error(err);
             ctx.status = 500;
