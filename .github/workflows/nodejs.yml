@@ -1,0 +1,27 @@
+name: build
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [8.x, 10.x, 12.x]
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Install dependencies, build project and run tests for API
+      run: |
+        npm install --prefix api/functions
+        npm run build --prefix api/functions
+        npm test --prefix api/functions
+      env:
+        JWT_SECRET: 4473a587c19d0f79331e03a6d249ca893e52889ee43ee23104ce1cd16670c60bf7e87c9921dc594899ee2656bb0a30e27
+    - name: Install dependencies, build project for web app
+      run: |
+        npm install --prefix web
+        npm run build --prefix web
+      env:
+        CI: true
