@@ -4,6 +4,7 @@ import { NotesRepository } from '../repositories/notes.repository';
 import { NoteDto } from '../models/note';
 import { access } from '../middleware/middleware';
 import { log } from '../logger/log';
+import { Errors } from '../error/errors';
 
 @Controller()
 export class NotesController extends KoaController {
@@ -33,20 +34,28 @@ export class NotesController extends KoaController {
   }
 
   @Put('/edit')
-  @Json() // TODO validate input and check user
+  @Json() // TODO validate input
   @Pre(access)
   async edit(ctx: Context) {
     const {id, title, content} = ctx.request.body;
-    log.debug('Editing note', ctx.request.body);
-    await this.notesRepository.update(id, {title, content});
+    log.debug(`User with id=${ctx.user} editing note`, ctx.request.body);
+    const success = await this.notesRepository.update(id, ctx.user, {title, content});
+    if (!success) {
+      log.warn(`User with id=${ctx.user} cannot edit note with id=${id}`);
+      throw Errors.notFound('Note not found.');
+    }
     ctx.send(204);
   }
 
   @Delete('/delete/:id')
-  @Pre(access) // TODO check user
+  @Pre(access)
   async deleteUser(ctx: Context) {
-    log.debug(`Deleting note with id=${ctx.params.id}`);
-    await this.notesRepository.remove(ctx.params.id);
+    log.debug(`User with id=${ctx.user} deleting note with id=${ctx.params.id}`);
+    const success = await this.notesRepository.remove(ctx.params.id, ctx.user);
+    if (!success) {
+      log.warn(`User with id=$ctx.user} cannot delete note with id=${ctx.params.id}`);
+      throw Errors.notFound('Note not found.');
+    }
     ctx.send(204);
   }
 }

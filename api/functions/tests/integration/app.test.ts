@@ -11,6 +11,7 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import { sign } from 'jsonwebtoken';
 import { ObjectId } from 'mongodb';
 import { Token } from '../../src/utils/token.utils';
+import { NoteDto } from '../../src/models/note';
 
 let server: http.Server;
 let mongod: MongoMemoryServer;
@@ -49,7 +50,7 @@ describe('/ping', () => {
 describe('/create', () => {
   const cookie = getAccessCookie();
 
-  test('Should return unauthorized if no access token', async () => {
+  test('Should return Unauthorized if no access token', async () => {
     const body = {
       title: 'Title',
       content: 'Content'
@@ -86,7 +87,7 @@ describe('/list', () => {
     }
   });
 
-  test('Should return unauthorized if no access token', async () => {
+  test('Should return Unauthorized if no access token', async () => {
     const response = await request(server).get('/list');
     expect(response.status).toEqual(401);
   });
@@ -108,34 +109,109 @@ describe('/list', () => {
 
 describe('/edit', () => {
   const cookie = getAccessCookie();
+  let note: NoteDto;
 
-  test('Should edit note', async () => {
-    const body = {
-      title: 'Title',
-      content: 'Content'
-    };
-    const createResponse = await request(server).post('/create')
-      .send(body)
-      .set('Cookie', cookie);
-    expect(createResponse.status).toEqual(201);
-
-    const note = createResponse.body.note;
-    const updated = {
-      id: note.id,
-      title: 'Updated title',
-      content: 'Updated content'
-    };
-    const editResponse = await request(server).put('/edit')
-      .send(updated)
-      .set('Cookie', cookie);
-    expect(editResponse.status).toEqual(204);
-
+  async function getNote() {
     const listResponse = await request(server).get('/list')
       .set('Cookie', cookie);
     expect(listResponse.status).toEqual(200);
     const notes = listResponse.body.notes;
     expect(notes).toHaveLength(1);
-    expect(notes[0].title).toEqual(updated.title);
-    expect(notes[0].content).toEqual(updated.content);
+    return notes[0];
+  }
+
+  beforeAll(async () => {
+    const body = {
+      title: 'Title',
+      content: 'Content'
+    };
+    const response = await request(server).post('/create')
+      .send(body)
+      .set('Cookie', cookie);
+    expect(response.status).toEqual(201);
+    note = response.body.note;
+  });
+
+  test('Should return Unauthorized if no access token', async () => {
+    const updated = {
+      id: note.id,
+      title: 'Updated title',
+      content: 'Updated content'
+    };
+    const response = await request(server).put('/edit')
+      .send(updated);
+    expect(response.status).toEqual(401);
+  });
+
+  test('Should return Not Found if different user', async () => {
+    const updated = {
+      id: note.id,
+      title: 'Updated title',
+      content: 'Updated content'
+    };
+    const response = await request(server).put('/edit')
+      .send(updated)
+      .set('Cookie', getAccessCookie());
+    expect(response.status).toEqual(404);
+  });
+
+  test('Should edit note', async () => {
+    const updated = {
+      id: note.id,
+      title: 'Updated title',
+      content: 'Updated content'
+    };
+    const response = await request(server).put('/edit')
+      .send(updated)
+      .set('Cookie', cookie);
+    expect(response.status).toEqual(204);
+
+    const updatedNote = await getNote();
+    expect(updatedNote.title).toEqual(updated.title);
+    expect(updatedNote.content).toEqual(updated.content);
+  });
+});
+
+describe('/delete', () => {
+  const cookie = getAccessCookie();
+  let note: NoteDto;
+
+  async function getNotes() {
+    const listResponse = await request(server).get('/list')
+      .set('Cookie', cookie);
+    expect(listResponse.status).toEqual(200);
+    return listResponse.body.notes;
+  }
+
+  beforeAll(async () => {
+    const body = {
+      title: 'Title',
+      content: 'Content'
+    };
+    const response = await request(server).post('/create')
+      .send(body)
+      .set('Cookie', cookie);
+    expect(response.status).toEqual(201);
+    note = response.body.note;
+  });
+
+  test('Should return Unauthorized if no access token', async () => {
+    const response = await request(server).delete(`/delete/${note.id}`);
+    expect(response.status).toEqual(401);
+  });
+
+  test('Should return Not Found if different user', async () => {
+    const response = await request(server).delete(`/delete/${note.id}`)
+      .set('Cookie', getAccessCookie());
+    expect(response.status).toEqual(404);
+  });
+
+  test('Should delete note', async () => {
+    const response = await request(server).delete(`/delete/${note.id}`)
+      .set('Cookie', cookie);
+    expect(response.status).toEqual(204);
+
+    const notes = await getNotes();
+    expect(notes).toHaveLength(0);
   });
 });

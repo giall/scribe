@@ -15,7 +15,7 @@ export const properties = {
   },
   mongodb: {
     url: process.env.MONGODB_URL,
-    name: process.env.MONGODB_NAME || 'scribe',
+    name: process.env.MONGODB_NAME,
     user: process.env.MONGODB_USER,
     password: process.env.MONGODB_PASSWORD
   }

@@ -24,19 +24,23 @@ export class NotesRepository {
     return result.ops[0] as Note;
   }
 
-  async update(id: string, note: Partial<Note>) {
+  async update(id: string, user: string, note: Partial<Note>): Promise<boolean> {
     const collection = await this.collection();
-    return collection.updateOne({
-      _id: new ObjectId(id)
-    }, {
+    const result = await collection.updateOne(this.filter(id, user), {
       $set: note
     });
+    return result.modifiedCount > 0;
   }
 
-  async remove(id: string) {
+  async remove(id: string, user: string): Promise<boolean> {
     const collection = await this.collection();
-    return collection.deleteOne({
-      _id: new ObjectId(id)
-    });
+    const result = await collection.deleteOne(this.filter(id, user));
+    return (result.deletedCount || 0) > 0;
+  }
+
+  private filter(id: string, user: string) {
+    return {
+      _id: new ObjectId(id), user
+    }
   }
 }
