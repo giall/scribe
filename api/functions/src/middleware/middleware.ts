@@ -52,6 +52,15 @@ async function access(ctx: Context, next: Next) {
   }
 }
 
+async function functionsFramework(ctx: Context, next: Next) {
+  const environment = process.env.NODE_ENV as string;
+  if (!['development', 'test', 'ci'].includes(environment)) {
+    // @ts-ignore
+    ctx.request = ctx.request.req; // for Functions Framework environments
+  }
+  await next();
+}
+
 export {
-    errorHandler, send, cors, access
+    errorHandler, send, cors, access, functionsFramework
 };

@@ -3,7 +3,7 @@ import * as Koa from 'koa';
 import { RootController } from './controllers/root.controller';
 import { configureRoutes, KoaController } from 'koa-joi-controllers';
 import { configureMiddleware } from './utils/app.utils';
-import { cors, errorHandler, send } from './middleware/middleware';
+import { cors, errorHandler, functionsFramework, send } from './middleware/middleware';
 import { log } from './logger/log';
 import { properties } from './properties/properties';
 import { Database } from './database/database';
@@ -22,7 +22,7 @@ export class App {
         log.info(`Environment is ${process.env.NODE_ENV}`);
         const app = new Koa();
         configureMiddleware(app, [
-            send, errorHandler, cors
+            functionsFramework, send, errorHandler, cors
         ]);
         configureRoutes(app, this.controllers());
         log.info('Controllers and middleware configured.');
