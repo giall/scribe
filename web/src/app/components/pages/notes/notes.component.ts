@@ -27,8 +27,7 @@ export class NotesComponent implements OnInit {
     const width = '500px';
     this.alert.showConfirmationDialog({ action, prompt, width }, () => {
       this.notesService.delete(note).subscribe(
-        _ => {
-        },
+        _ => this.notes.splice(this.notes.indexOf(note), 1),
         err => this.alert.showSnackbar(err.error)
       );
     });
