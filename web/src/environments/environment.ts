@@ -2,7 +2,8 @@ export const environment = {
   production: false,
   tracing: false,
   url: {
-    auth: '/api'
+    auth: '/api',
+    notes: '/scribe-notes/us-central1/scribe'
   }
 };
 
