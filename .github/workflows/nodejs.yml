@@ -35,6 +35,7 @@ jobs:
       - name: Install dependencies, build project for web app
         run: |
           npm install --prefix web
+          npm run lint --prefix web
           npm run build --prefix web
         env:
           CI: true
