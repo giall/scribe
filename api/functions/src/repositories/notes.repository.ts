@@ -15,7 +15,8 @@ export class NotesRepository {
 
   async list(user: string): Promise<Note[]> {
     const collection = await this.collection();
-    return collection.find({user}).toArray();
+    return collection.find({user})
+      .toArray()
   }
 
   async create(note: Partial<Note>): Promise<Note> {

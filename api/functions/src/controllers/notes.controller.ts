@@ -20,7 +20,7 @@ export class NotesController extends KoaController {
   async list(ctx: Context) {
     log.debug(`Getting all notes for user=${ctx.user}`);
     const notes = await this.notesRepository.list(ctx.user);
-    ctx.send(200, {notes});
+    ctx.send(200, {notes: notes.map(note => NoteDto.from(note))});
   }
 
   @Post('/create')
@@ -36,7 +36,7 @@ export class NotesController extends KoaController {
     const {title, content} = ctx.request.body;
     const note = await this.notesRepository.create({title, content, user: ctx.user});
     log.debug('New note created.', note);
-    ctx.send(201, {note: NoteDto.from(note)});
+    ctx.send(201, {id: note._id});
   }
 
   @Put('/edit')

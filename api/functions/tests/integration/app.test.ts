@@ -2,16 +2,14 @@ import * as http from 'http';
 import * as request from 'supertest';
 
 import { properties } from '../../src/properties/properties';
-
-properties.logging.level = 'test';
-
 import { App } from '../../src/app';
 import { Database } from '../../src/database/database';
 import { MongoMemoryServer } from 'mongodb-memory-server';
 import { sign } from 'jsonwebtoken';
 import { ObjectId } from 'mongodb';
 import { Token } from '../../src/utils/token.utils';
-import { NoteDto } from '../../src/models/note';
+
+properties.logging.level = 'test';
 
 let server: http.Server;
 let mongod: MongoMemoryServer;
@@ -133,7 +131,7 @@ describe('/list', () => {
 
 describe('/edit', () => {
   const cookie = getAccessCookie();
-  let note: NoteDto;
+  let noteId: string;
 
   async function getNote() {
     const listResponse = await request(server).get('/list')
@@ -153,12 +151,12 @@ describe('/edit', () => {
       .send(body)
       .set('Cookie', cookie);
     expect(response.status).toEqual(201);
-    note = response.body.note;
+    noteId = response.body.id;
   });
 
   test('Should return Unauthorized if no access token', async () => {
     const updated = {
-      id: note.id,
+      id: noteId,
       title: 'Updated title',
       content: 'Updated content'
     };
@@ -169,7 +167,7 @@ describe('/edit', () => {
 
   test('Should return Not Found if different user', async () => {
     const updated = {
-      id: note.id,
+      id: noteId,
       title: 'Updated title',
       content: 'Updated content'
     };
@@ -192,7 +190,7 @@ describe('/edit', () => {
 
   test('Should edit note', async () => {
     const updated = {
-      id: note.id,
+      id: noteId,
       title: 'Updated title',
       content: 'Updated content'
     };
@@ -209,7 +207,7 @@ describe('/edit', () => {
 
 describe('/delete', () => {
   const cookie = getAccessCookie();
-  let note: NoteDto;
+  let noteId: string;
 
   async function getNotes() {
     const listResponse = await request(server).get('/list')
@@ -227,22 +225,22 @@ describe('/delete', () => {
       .send(body)
       .set('Cookie', cookie);
     expect(response.status).toEqual(201);
-    note = response.body.note;
+    noteId = response.body.id;
   });
 
   test('Should return Unauthorized if no access token', async () => {
-    const response = await request(server).delete(`/delete/${note.id}`);
+    const response = await request(server).delete(`/delete/${noteId}`);
     expect(response.status).toEqual(401);
   });
 
   test('Should return Not Found if different user', async () => {
-    const response = await request(server).delete(`/delete/${note.id}`)
+    const response = await request(server).delete(`/delete/${noteId}`)
       .set('Cookie', getAccessCookie());
     expect(response.status).toEqual(404);
   });
 
   test('Should delete note', async () => {
-    const response = await request(server).delete(`/delete/${note.id}`)
+    const response = await request(server).delete(`/delete/${noteId}`)
       .set('Cookie', cookie);
     expect(response.status).toEqual(204);
 
