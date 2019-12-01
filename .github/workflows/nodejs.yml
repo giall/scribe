@@ -1,4 +1,4 @@
-name: build
+name: Scribe CI
 on: [push]
 jobs:
   build-api:
@@ -22,18 +22,18 @@ jobs:
           CI: true
   build-ui:
     runs-on: ubuntu-latest
-      strategy:
-        matrix:
-          node-version: [10.x, 12.x]
-      steps:
-        - uses: actions/checkout@v1
-        - name: Use Node.js ${{ matrix.node-version }}
-          uses: actions/setup-node@v1
-          with:
-            node-version: ${{ matrix.node-version }}
-        - name: Install dependencies, build project for web app
-          run: |
-            npm install --prefix web
-            npm run build --prefix web
-          env:
-            CI: true
+    strategy:
+      matrix:
+        node-version: [10.x, 12.x]
+    steps:
+      - uses: actions/checkout@v1
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies, build project for web app
+        run: |
+          npm install --prefix web
+          npm run build --prefix web
+        env:
+          CI: true
