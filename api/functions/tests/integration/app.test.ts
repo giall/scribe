@@ -60,6 +60,16 @@ describe('/create', () => {
     expect(response.status).toEqual(401);
   });
 
+  test('Should return Bad Request if invalid body', async () => {
+    const body = {
+      content: 'Content'
+    };
+    const response = await request(server).post('/create')
+      .send(body)
+      .set('Cookie', cookie);
+    expect(response.status).toEqual(400);
+  });
+
   test('Should create a new note', async () => {
     const body = {
       title: 'Title',
@@ -89,6 +99,20 @@ describe('/list', () => {
 
   test('Should return Unauthorized if no access token', async () => {
     const response = await request(server).get('/list');
+    expect(response.status).toEqual(401);
+  });
+
+  test('Should return Unauthorized if invalid JWT', async () => {
+    const token = sign({ id: new ObjectId(), type: 'other' }, properties.jwt.secret as string);
+    const response = await request(server).get('/list')
+      .set('Cookie', `access=${token}`);
+    expect(response.status).toEqual(401);
+  });
+
+  test('Should return Unauthorized if invalid token', async () => {
+    const token = 'qwertyuiopasdfghjklzxcvbnm';
+    const response = await request(server).get('/list')
+      .set('Cookie', `access=${token}`);
     expect(response.status).toEqual(401);
   });
 
@@ -153,6 +177,17 @@ describe('/edit', () => {
       .send(updated)
       .set('Cookie', getAccessCookie());
     expect(response.status).toEqual(404);
+  });
+
+  test('Should return Bad Request if no ID in body', async () => {
+    const updated = {
+      title: 'Updated title',
+      content: 'Updated content'
+    };
+    const response = await request(server).put('/edit')
+      .send(updated)
+      .set('Cookie', cookie);
+    expect(response.status).toEqual(400);
   });
 
   test('Should edit note', async () => {

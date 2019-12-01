@@ -1,4 +1,4 @@
-import { Controller, Delete, Get, Json, KoaController, Post, Pre, Put } from 'koa-joi-controllers';
+import { Controller, Delete, Get, KoaController, Post, Pre, Put, Validate, Validator } from 'koa-joi-controllers';
 import { Context } from 'koa';
 import { NotesRepository } from '../repositories/notes.repository';
 import { NoteDto } from '../models/note';
@@ -24,7 +24,13 @@ export class NotesController extends KoaController {
   }
 
   @Post('/create')
-  @Json() // TODO validate input
+  @Validate({
+    type: 'json',
+    body: {
+      title: Validator.Joi.string().max(40).required(),
+      content: Validator.Joi.string().max(200).required()
+    }
+  })
   @Pre(access)
   async create(ctx: Context) {
     const {title, content} = ctx.request.body;
@@ -34,7 +40,14 @@ export class NotesController extends KoaController {
   }
 
   @Put('/edit')
-  @Json() // TODO validate input
+  @Validate({
+    type: 'json',
+    body: {
+      id: Validator.Joi.string().required(),
+      title: Validator.Joi.string().max(40),
+      content: Validator.Joi.string().max(200)
+    }
+  })
   @Pre(access)
   async edit(ctx: Context) {
     const {id, title, content} = ctx.request.body;
