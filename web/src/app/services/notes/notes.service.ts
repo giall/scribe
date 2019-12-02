@@ -6,7 +6,7 @@ import { Note } from '../../models/note';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { AuthService } from '../auth/auth.service';
-import { retryWith } from '../../utils/auth.util';
+import { retryWith, xsrf } from '../../utils/auth.util';
 
 function url(endpoint: string): string {
   return `${environment.url.notes}/${endpoint}`;
@@ -23,6 +23,10 @@ export class NotesService {
     this.auth = retryWith(authService, log);
   }
 
+  init() {
+    return this.http.get(url(''));
+  }
+
   list(): Observable<Note[]> {
     return this.auth(this.http.get(url('list'), {
       withCredentials: true
@@ -33,6 +37,7 @@ export class NotesService {
 
   create(note: Partial<Note>): Observable<string> {
     return this.auth(this.http.post(url('create'), note, {
+      headers: { ...this.xsrf() },
       withCredentials: true
     }).pipe(
       map((res: any) => res.id)
@@ -41,13 +46,19 @@ export class NotesService {
 
   edit(note: Partial<Note>): Observable<void> {
     return this.auth(this.http.put(url('edit'), note, {
+      headers: { ...this.xsrf() },
       withCredentials: true
     }));
   }
 
   delete(note: Partial<Note>): Observable<void> {
     return this.auth(this.http.delete(url(`delete/${note.id}`), {
+      headers: { ...this.xsrf() },
       withCredentials: true
     }));
+  }
+
+  private xsrf() {
+    return xsrf(document.cookie);
   }
 }

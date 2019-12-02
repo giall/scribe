@@ -11,7 +11,7 @@
   <span>Click on the round button below to create one.</span>
 </mat-card>
 
-<mat-card *ngFor="let note of notes">
+<mat-card class="note" *ngFor="let note of notes">
   <mat-card-content>
     <h2>{{note.title}}</h2>
     <p>{{note.content}}</p>

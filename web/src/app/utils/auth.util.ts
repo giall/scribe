@@ -27,4 +27,11 @@ function retryWith(authService: AuthService, logService: LogService) {
   };
 }
 
-export { retryWith, url };
+function xsrf(cookie) {
+  const token = cookie.split(`${environment.xsrf.cookie}=`)[1];
+  return {
+    [environment.xsrf.header]: token
+  };
+}
+
+export { retryWith, url, xsrf };

@@ -18,5 +18,10 @@ export const properties = {
     name: process.env.MONGODB_NAME,
     user: process.env.MONGODB_USER,
     password: process.env.MONGODB_PASSWORD
+  },
+  xsrf: {
+    cookie: 'XSRF-TOKEN',
+    header: 'X-XSRF-TOKEN',
+    length: 48
   }
 };

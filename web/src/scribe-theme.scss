@@ -95,6 +95,10 @@ $scribe-theme-dark: mat-dark-theme(mat-palette($scribe-dark), $scribe-accent, $s
     color: white;
     background-color: $scribe-light-primary;
   }
+
+  .note {
+    background-color: #fff8e1;
+  }
 }
 
 .dark {
@@ -112,5 +116,9 @@ $scribe-theme-dark: mat-dark-theme(mat-palette($scribe-dark), $scribe-accent, $s
   .scribe-primary {
     color: white;
     background-color: $scribe-dark-primary;
+  }
+
+  .note {
+    background-color: #655f18;
   }
 }

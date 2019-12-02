@@ -8,16 +8,21 @@ import { MongoMemoryServer } from 'mongodb-memory-server';
 import { sign } from 'jsonwebtoken';
 import { ObjectId } from 'mongodb';
 import { Token } from '../../src/utils/token.utils';
-
-properties.logging.level = 'test';
+import { csrfToken } from '../../src/utils/app.utils';
 
 let server: http.Server;
 let mongod: MongoMemoryServer;
 let database: Database;
 
-function getAccessCookie() {
+const csrf = csrfToken();
+
+function getCookie() {
   const token = sign({ id: new ObjectId(), type: Token.Access }, properties.jwt.secret as string);
-  return `access=${token}`;
+  return `access=${token};${properties.xsrf.cookie}=${csrf}`;
+}
+
+function getCsrfCookie() {
+  return `${properties.xsrf.cookie}=${csrf}`;
 }
 
 beforeAll(async () => {
@@ -46,7 +51,18 @@ describe('/ping', () => {
 });
 
 describe('/create', () => {
-  const cookie = getAccessCookie();
+  const cookie = getCookie();
+
+  test('Should return Forbidden if invalid CSRF token', async () => {
+    const body = {
+      title: 'Title',
+      content: 'Content'
+    };
+    const response = await request(server).post('/create')
+      .set(properties.xsrf.header, csrfToken())
+      .send(body);
+    expect(response.status).toEqual(403);
+  });
 
   test('Should return Unauthorized if no access token', async () => {
     const body = {
@@ -54,6 +70,8 @@ describe('/create', () => {
       content: 'Content'
     };
     const response = await request(server).post('/create')
+      .set(properties.xsrf.header, csrf)
+      .set('Cookie', getCsrfCookie())
       .send(body);
     expect(response.status).toEqual(401);
   });
@@ -75,13 +93,14 @@ describe('/create', () => {
     };
     const response = await request(server).post('/create')
       .send(body)
+      .set(properties.xsrf.header, csrf)
       .set('Cookie', cookie);
     expect(response.status).toEqual(201);
   });
 });
 
 describe('/list', () => {
-  const cookie = getAccessCookie();
+  const cookie = getCookie();
   const notes = [
     { title: 'title1', content: 'content1' },
     { title: 'title2', content: 'content2' }
@@ -91,6 +110,7 @@ describe('/list', () => {
     for (const note of notes) {
       await request(server).post('/create')
         .send(note)
+        .set(properties.xsrf.header, csrf)
         .set('Cookie', cookie);
     }
   });
@@ -123,14 +143,14 @@ describe('/list', () => {
 
   test('Should not return any notes for new user', async () => {
     const response = await request(server).get('/list')
-      .set('Cookie', getAccessCookie());
+      .set('Cookie', getCookie());
     expect(response.status).toEqual(200);
     expect(response.body.notes).toHaveLength(0);
   });
 });
 
 describe('/edit', () => {
-  const cookie = getAccessCookie();
+  const cookie = getCookie();
   let noteId: string;
 
   async function getNote() {
@@ -149,6 +169,7 @@ describe('/edit', () => {
     };
     const response = await request(server).post('/create')
       .send(body)
+      .set(properties.xsrf.header, csrf)
       .set('Cookie', cookie);
     expect(response.status).toEqual(201);
     noteId = response.body.id;
@@ -161,6 +182,8 @@ describe('/edit', () => {
       content: 'Updated content'
     };
     const response = await request(server).put('/edit')
+      .set(properties.xsrf.header, csrf)
+      .set('Cookie', getCsrfCookie())
       .send(updated);
     expect(response.status).toEqual(401);
   });
@@ -173,7 +196,8 @@ describe('/edit', () => {
     };
     const response = await request(server).put('/edit')
       .send(updated)
-      .set('Cookie', getAccessCookie());
+      .set(properties.xsrf.header, csrf)
+      .set('Cookie', getCookie());
     expect(response.status).toEqual(404);
   });
 
@@ -196,6 +220,7 @@ describe('/edit', () => {
     };
     const response = await request(server).put('/edit')
       .send(updated)
+      .set(properties.xsrf.header, csrf)
       .set('Cookie', cookie);
     expect(response.status).toEqual(204);
 
@@ -206,7 +231,7 @@ describe('/edit', () => {
 });
 
 describe('/delete', () => {
-  const cookie = getAccessCookie();
+  const cookie = getCookie();
   let noteId: string;
 
   async function getNotes() {
@@ -223,30 +248,37 @@ describe('/delete', () => {
     };
     const response = await request(server).post('/create')
       .send(body)
+      .set(properties.xsrf.header, csrf)
       .set('Cookie', cookie);
     expect(response.status).toEqual(201);
     noteId = response.body.id;
   });
 
   test('Should return Unauthorized if no access token', async () => {
-    const response = await request(server).delete(`/delete/${noteId}`);
+    const response = await request(server)
+      .delete(`/delete/${noteId}`)
+      .set(properties.xsrf.header, csrf)
+      .set('Cookie', getCsrfCookie());
     expect(response.status).toEqual(401);
   });
 
   test('Should return Not Found if different user', async () => {
     const response = await request(server).delete(`/delete/${noteId}`)
-      .set('Cookie', getAccessCookie());
+      .set(properties.xsrf.header, csrf)
+      .set('Cookie', getCookie());
     expect(response.status).toEqual(404);
   });
 
   test('Should  return internal server error if invalid ID', async () => {
     const response = await request(server).delete(`/delete/asdfghjkl`)
+      .set(properties.xsrf.header, csrf)
       .set('Cookie', cookie);
     expect(response.status).toEqual(500);
   });
 
   test('Should delete note', async () => {
     const response = await request(server).delete(`/delete/${noteId}`)
+      .set(properties.xsrf.header, csrf)
       .set('Cookie', cookie);
     expect(response.status).toEqual(204);
 

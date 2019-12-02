@@ -6,7 +6,7 @@ export class Logger {
 
   constructor() {
     const { level } = properties.logging;
-    this.logger = (level !== 'test') ? pino({level}) : console;
+    this.logger = (process.env.NODE_ENV !== 'test') ? pino({level}) : console;
   }
 
   debug(val: any, ...args: any[]) {

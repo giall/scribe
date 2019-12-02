@@ -52,6 +52,17 @@ async function access(ctx: Context, next: Next) {
   }
 }
 
+async function csrf(ctx: Context, next: Next) {
+  const cookie = ctx.cookies.get(properties.xsrf.cookie) || '';
+  const header = ctx.get(properties.xsrf.header);
+  if (cookie.length !== properties.xsrf.length && cookie !== header) {
+    log.warn(`Invalid CSRF token: ${header}`);
+    throw Errors.forbidden('Invalid CSRF Token');
+  }
+  log.debug('CSRF token is valid; continuing...');
+  await next();
+}
+
 async function functionsFramework(ctx: Context, next: Next) {
   const environment = process.env.NODE_ENV as string;
   if (!['development', 'test', 'ci'].includes(environment)) {
@@ -62,5 +73,5 @@ async function functionsFramework(ctx: Context, next: Next) {
 }
 
 export {
-    errorHandler, send, cors, access, functionsFramework
+    errorHandler, send, cors, access, functionsFramework, csrf
 };

@@ -4,6 +4,7 @@ import { Theme } from './models/theme';
 import { AuthService } from './services/auth/auth.service';
 import { UserStore } from './stores/user/user.store';
 import { LogService } from './services/log/log.service';
+import { NotesService } from './services/notes/notes.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,7 @@ export class AppComponent implements OnInit {
   classes: string;
   show = false;
 
-  constructor(private config: ConfigStore, private auth: AuthService,
+  constructor(private config: ConfigStore, private auth: AuthService, private notes: NotesService,
               private user: UserStore, private log: LogService) { }
 
   ngOnInit() {
@@ -25,7 +26,11 @@ export class AppComponent implements OnInit {
       this.auth.refresh().subscribe((res: any) => {
           this.log.info('Tokens refreshed and user login successful.');
           this.user.set(res.user);
-          this.show = true;
+          this.log.info('Getting CSRF token...');
+          this.notes.init().subscribe(
+            _ => this.show = true,
+            err => this.log.error(err)
+          );
         },
         err => {
           this.log.error(err);

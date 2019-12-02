@@ -1,8 +1,8 @@
-import { Controller, Delete, Get, KoaController, Post, Pre, Put, Validate, Validator } from 'koa-joi-controllers';
+import { Controller, Delete, Get, KoaController, Post, Pre, Put, Validate, Validator, Chain } from 'koa-joi-controllers';
 import { Context } from 'koa';
 import { NotesRepository } from '../repositories/notes.repository';
 import { NoteDto } from '../models/note';
-import { access } from '../middleware/middleware';
+import { access, csrf } from '../middleware/middleware';
 import { log } from '../logger/log';
 import { Errors } from '../error/errors';
 
@@ -31,7 +31,7 @@ export class NotesController extends KoaController {
       content: Validator.Joi.string().max(200).required()
     }
   })
-  @Pre(access)
+  @Chain(csrf, access)
   async create(ctx: Context) {
     const {title, content} = ctx.request.body;
     const note = await this.notesRepository.create({title, content, user: ctx.user});
@@ -48,7 +48,7 @@ export class NotesController extends KoaController {
       content: Validator.Joi.string().max(200)
     }
   })
-  @Pre(access)
+  @Chain(csrf, access)
   async edit(ctx: Context) {
     const {id, title, content} = ctx.request.body;
     log.debug(`User with id=${ctx.user} editing note`, ctx.request.body);
@@ -61,7 +61,7 @@ export class NotesController extends KoaController {
   }
 
   @Delete('/delete/:id')
-  @Pre(access)
+  @Chain(csrf, access)
   async deleteUser(ctx: Context) {
     log.debug(`User with id=${ctx.user} deleting note with id=${ctx.params.id}`);
     const success = await this.notesRepository.remove(ctx.params.id, ctx.user);
