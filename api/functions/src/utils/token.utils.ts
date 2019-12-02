@@ -7,12 +7,12 @@ export enum Token {
   Access = 'access'
 }
 
-export interface Payload {
+interface Payload {
   id: string;
   type: Token;
 }
 
-function decode(token: string) {
+function decode(token: string): Payload {
   let payload: Payload;
   try {
     payload = verify(token, properties.jwt.secret as string) as Payload;

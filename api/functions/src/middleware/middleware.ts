@@ -3,7 +3,7 @@ import { Context, Next } from 'koa';
 import { AppError, Errors } from '../error/errors';
 import { log } from '../logger/log';
 import { properties } from '../properties/properties';
-import { decode, Payload, Token } from '../utils/token.utils';
+import { decode, Token } from '../utils/token.utils';
 
 async function errorHandler(ctx: Context, next: Next) {
     try {
@@ -43,7 +43,7 @@ function cors(ctx: Context, next: Next) {
 async function access(ctx: Context, next: Next) {
   const token = ctx.cookies.get(Token.Access);
   if (token) {
-    const payload = decode(token) as Payload;
+    const payload = decode(token);
     ctx.user = payload.id;
     await next();
   } else {
