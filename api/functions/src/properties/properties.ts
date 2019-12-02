@@ -1,6 +1,8 @@
 import * as functions from 'firebase-functions';
 
-let config: any = {};
+let config: any = {
+  mongodb: {}
+};
 if (process.env.NODE_ENV !== 'production') {
   // tslint:disable-next-line:no-implicit-dependencies
   require('dotenv').config();
