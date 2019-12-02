@@ -18,6 +18,7 @@ jobs:
           npm run build --prefix api/functions
           npm test --prefix api/functions
         env:
+          APP_URL: http://localhost:4200
           MONGODB_NAME: scribe
           JWT_SECRET: 4473a587c19d0f79331e03a6d249ca893e52889ee43ee23104ce1cd16670c60bf7e87c9921dc594899ee2656bb0a30e27
           CI: true
