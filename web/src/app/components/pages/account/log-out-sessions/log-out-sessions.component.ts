@@ -26,7 +26,7 @@ export class LogOutSessionsComponent {
   }
 
   invalidate() {
-    const prompt = 'You will be logged out of all devices. Are you sure?';
+    const prompt = 'You will be logged out of all devices. Are you sure? This could take up to 15 minutes.';
     this.post(this.auth.invalidate.bind(this.auth), Action.LogOutAll, prompt);
   }
 
