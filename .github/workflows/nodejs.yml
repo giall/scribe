@@ -14,9 +14,9 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies, build project and run tests for API
         run: |
-          npm install --prefix api/functions
-          npm run build --prefix api/functions
-          npm test --prefix api/functions
+          npm install --prefix api
+          npm run build --prefix api
+          npm test --prefix api
         env:
           APP_URL: http://localhost:4200
           LOG_LEVEL: debug
