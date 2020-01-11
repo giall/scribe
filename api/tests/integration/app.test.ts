@@ -45,7 +45,7 @@ afterAll(async () => {
 
 describe('/ping', () => {
   test('Should return OK', async () => {
-    const response = await request(server).get('/ping');
+    const response = await request(server).get('/scribe/ping');
     expect(response.status).toEqual(200);
   });
 });
@@ -58,7 +58,7 @@ describe('/create', () => {
       title: 'Title',
       content: 'Content'
     };
-    const response = await request(server).post('/create')
+    const response = await request(server).post('/scribe/create')
       .set(properties.xsrf.header, csrfToken())
       .send(body);
     expect(response.status).toEqual(403);
@@ -69,7 +69,7 @@ describe('/create', () => {
       title: 'Title',
       content: 'Content'
     };
-    const response = await request(server).post('/create')
+    const response = await request(server).post('/scribe/create')
       .set(properties.xsrf.header, csrf)
       .set('Cookie', getCsrfCookie())
       .send(body);
@@ -80,7 +80,7 @@ describe('/create', () => {
     const body = {
       content: 'Content'
     };
-    const response = await request(server).post('/create')
+    const response = await request(server).post('/scribe/create')
       .send(body)
       .set('Cookie', cookie);
     expect(response.status).toEqual(400);
@@ -91,7 +91,7 @@ describe('/create', () => {
       title: 'Title',
       content: 'Content'
     };
-    const response = await request(server).post('/create')
+    const response = await request(server).post('/scribe/create')
       .send(body)
       .set(properties.xsrf.header, csrf)
       .set('Cookie', cookie);
@@ -99,7 +99,7 @@ describe('/create', () => {
   });
 });
 
-describe('/list', () => {
+describe('/scribe/list', () => {
   const cookie = getCookie();
   const notes = [
     { title: 'title1', content: 'content1' },
@@ -108,7 +108,7 @@ describe('/list', () => {
 
   beforeAll(async () => {
     for (const note of notes) {
-      await request(server).post('/create')
+      await request(server).post('/scribe/create')
         .send(note)
         .set(properties.xsrf.header, csrf)
         .set('Cookie', cookie);
@@ -116,45 +116,45 @@ describe('/list', () => {
   });
 
   test('Should return Unauthorized if no access token', async () => {
-    const response = await request(server).get('/list');
+    const response = await request(server).get('/scribe/list');
     expect(response.status).toEqual(401);
   });
 
   test('Should return Unauthorized if invalid JWT', async () => {
     const token = sign({ id: new ObjectId(), type: 'other' }, properties.jwt.secret as string);
-    const response = await request(server).get('/list')
+    const response = await request(server).get('/scribe/list')
       .set('Cookie', `access=${token}`);
     expect(response.status).toEqual(401);
   });
 
   test('Should return Unauthorized if invalid token', async () => {
     const token = 'qwertyuiopasdfghjklzxcvbnm';
-    const response = await request(server).get('/list')
+    const response = await request(server).get('/scribe/list')
       .set('Cookie', `access=${token}`);
     expect(response.status).toEqual(401);
   });
 
   test('Should return user notes', async () => {
-    const response = await request(server).get('/list')
+    const response = await request(server).get('/scribe/list')
       .set('Cookie', cookie);
     expect(response.status).toEqual(200);
     expect(response.body.notes).toHaveLength(notes.length);
   });
 
   test('Should not return any notes for new user', async () => {
-    const response = await request(server).get('/list')
+    const response = await request(server).get('/scribe/list')
       .set('Cookie', getCookie());
     expect(response.status).toEqual(200);
     expect(response.body.notes).toHaveLength(0);
   });
 });
 
-describe('/edit', () => {
+describe('/scribe/edit', () => {
   const cookie = getCookie();
   let noteId: string;
 
   async function getNote() {
-    const listResponse = await request(server).get('/list')
+    const listResponse = await request(server).get('/scribe/list')
       .set('Cookie', cookie);
     expect(listResponse.status).toEqual(200);
     const notes = listResponse.body.notes;
@@ -167,7 +167,7 @@ describe('/edit', () => {
       title: 'Title',
       content: 'Content'
     };
-    const response = await request(server).post('/create')
+    const response = await request(server).post('/scribe/create')
       .send(body)
       .set(properties.xsrf.header, csrf)
       .set('Cookie', cookie);
@@ -181,7 +181,7 @@ describe('/edit', () => {
       title: 'Updated title',
       content: 'Updated content'
     };
-    const response = await request(server).put('/edit')
+    const response = await request(server).put('/scribe/edit')
       .set(properties.xsrf.header, csrf)
       .set('Cookie', getCsrfCookie())
       .send(updated);
@@ -194,7 +194,7 @@ describe('/edit', () => {
       title: 'Updated title',
       content: 'Updated content'
     };
-    const response = await request(server).put('/edit')
+    const response = await request(server).put('/scribe/edit')
       .send(updated)
       .set(properties.xsrf.header, csrf)
       .set('Cookie', getCookie());
@@ -206,7 +206,7 @@ describe('/edit', () => {
       title: 'Updated title',
       content: 'Updated content'
     };
-    const response = await request(server).put('/edit')
+    const response = await request(server).put('/scribe/edit')
       .send(updated)
       .set('Cookie', cookie);
     expect(response.status).toEqual(400);
@@ -218,7 +218,7 @@ describe('/edit', () => {
       title: 'Updated title',
       content: 'Updated content'
     };
-    const response = await request(server).put('/edit')
+    const response = await request(server).put('/scribe/edit')
       .send(updated)
       .set(properties.xsrf.header, csrf)
       .set('Cookie', cookie);
@@ -235,7 +235,7 @@ describe('/delete', () => {
   let noteId: string;
 
   async function getNotes() {
-    const listResponse = await request(server).get('/list')
+    const listResponse = await request(server).get('/scribe/list')
       .set('Cookie', cookie);
     expect(listResponse.status).toEqual(200);
     return listResponse.body.notes;
@@ -246,7 +246,7 @@ describe('/delete', () => {
       title: 'Title',
       content: 'Content'
     };
-    const response = await request(server).post('/create')
+    const response = await request(server).post('/scribe/create')
       .send(body)
       .set(properties.xsrf.header, csrf)
       .set('Cookie', cookie);
@@ -256,28 +256,28 @@ describe('/delete', () => {
 
   test('Should return Unauthorized if no access token', async () => {
     const response = await request(server)
-      .delete(`/delete/${noteId}`)
+      .delete(`/scribe/delete/${noteId}`)
       .set(properties.xsrf.header, csrf)
       .set('Cookie', getCsrfCookie());
     expect(response.status).toEqual(401);
   });
 
   test('Should return Not Found if different user', async () => {
-    const response = await request(server).delete(`/delete/${noteId}`)
+    const response = await request(server).delete(`/scribe/delete/${noteId}`)
       .set(properties.xsrf.header, csrf)
       .set('Cookie', getCookie());
     expect(response.status).toEqual(404);
   });
 
   test('Should  return internal server error if invalid ID', async () => {
-    const response = await request(server).delete(`/delete/asdfghjkl`)
+    const response = await request(server).delete(`/scribe/delete/asdfghjkl`)
       .set(properties.xsrf.header, csrf)
       .set('Cookie', cookie);
     expect(response.status).toEqual(500);
   });
 
   test('Should delete note', async () => {
-    const response = await request(server).delete(`/delete/${noteId}`)
+    const response = await request(server).delete(`/scribe/delete/${noteId}`)
       .set(properties.xsrf.header, csrf)
       .set('Cookie', cookie);
     expect(response.status).toEqual(204);
