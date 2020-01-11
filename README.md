@@ -1,27 +1,35 @@
 # Scribe
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
+This is a simple note taking web application made with Angular, demonstrating how to use the [Hecate authentication service](https://github.com/giall/hecate) in a web application.
 
-## Development server
+## Running locally
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+To run the web app on `http://localhost:4200/`:
+```
+cd web
+npm start
+```
 
-## Code scaffolding
+To run the backend on `http://localhost:5000/`:
+```
+cd api/functions
+npm run serve
+```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+To run the authentication service: https://github.com/giall/hecate#Scripts
 
-## Build
+## Deployment
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Deploy the web app to Firebase Hosting:
+```
+cd web
+npm run deploy
+```
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Deploy the API to Firebase Functions:
+```
+cd api/functions
+npm run build
+npm run deploy
+```
+Note: This requires the Firebase CLI and a Firebase project to be set up.
