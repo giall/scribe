@@ -35,7 +35,7 @@ async function send(ctx: Context, next: Next) {
 function cors(ctx: Context, next: Next) {
     return koaCors({
         origin: properties.app.host,
-        allowHeaders: 'content-type',
+        allowHeaders: ['content-type', 'x-xsrf-token'],
         credentials: true
     })(ctx, next);
 }
