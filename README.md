@@ -17,8 +17,8 @@ npm start
 
 To run the backend on `http://localhost:5000/`:
 ```
-cd api/functions
-npm run serve
+cd api
+npm run dev
 ```
 
 To run the authentication service: https://github.com/giall/hecate#Scripts
@@ -33,8 +33,8 @@ npm run deploy
 
 Deploy the API to Firebase Functions:
 ```
-cd api/functions
+cd api
 npm run build
-npm run deploy
+npm run deploy --prefix dist
 ```
 Note: This requires the Firebase CLI and a Firebase project to be set up.

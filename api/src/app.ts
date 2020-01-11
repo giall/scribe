@@ -24,7 +24,7 @@ export class App {
         configureMiddleware(app, [
             functionsFramework, send, errorHandler, cors
         ]);
-        configureRoutes(app, this.controllers());
+        configureRoutes(app, this.controllers(), '/scribe');
         log.info('Controllers and middleware configured.');
         app.proxy = properties.app.proxy;
         return app;

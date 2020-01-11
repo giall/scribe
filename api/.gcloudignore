@@ -1,0 +1,4 @@
+.env
+env.yaml
+# used to run app locally
+main.js

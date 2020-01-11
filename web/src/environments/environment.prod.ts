@@ -3,7 +3,7 @@ export const environment = {
   tracing: false,
   url: {
     auth: 'https://us-central1-scribe-demo.cloudfunctions.net/hecate/api',
-    notes: 'https://us-central1-scribe-notes.cloudfunctions.net/scribe'
+    notes: 'https://us-central1-scribe-demo.cloudfunctions.net/scribe/scribe'
   },
   xsrf: {
     header: 'X-XSRF-TOKEN',

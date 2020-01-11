@@ -3,7 +3,7 @@ export const environment = {
   tracing: false,
   url: {
     auth: '/api',
-    notes: '/scribe-notes/us-central1/scribe'
+    notes: '/scribe'
   },
   xsrf: {
     header: 'X-XSRF-TOKEN',

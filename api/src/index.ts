@@ -1,4 +1,3 @@
-import * as functions from 'firebase-functions';
 import { App } from './app';
 import { Database } from './database/database';
 import { properties } from './properties/properties';
@@ -10,4 +9,4 @@ function create(): App {
 }
 
 const app = create().bootstrap();
-export const scribe = functions.https.onRequest(app.callback());
+export const scribe = app.callback();
