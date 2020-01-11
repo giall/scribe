@@ -7,6 +7,7 @@ import { UserStore } from 'src/app/stores/user/user.store';
 import { Router } from '@angular/router';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { ConfigStore } from '../../../stores/config/config.store';
+import { NotesService } from '../../../services/notes/notes.service';
 
 @Component({
   selector: 'app-login',
@@ -32,7 +33,8 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(private log: LogService, private authService: AuthService, private config: ConfigStore,
-              private alert: AlertService, private user: UserStore, private router: Router) {
+              private alert: AlertService, private user: UserStore, private router: Router,
+              private notes: NotesService) {
   }
 
   ngOnInit() {
@@ -44,10 +46,17 @@ export class LoginComponent implements OnInit {
     this.log.info('Submitting login form:', options);
     this.authService.login(options).subscribe(
       (res: any) => {
-        this.config.rememberMe = options.rememberMe;
-        this.user.set(res.user);
-        this.alert.showSnackbar(res.message);
-        this.router.navigate(['/home']);
+        this.log.info('Login successful, getting CSRF token...');
+        this.notes.init().subscribe(
+          _ => {
+            this.log.info('CSRF token set.');
+            this.config.rememberMe = options.rememberMe;
+            this.user.set(res.user);
+            this.alert.showSnackbar(res.message);
+            this.router.navigate(['/home']);
+          },
+          err => this.log.error(err)
+        );
       },
       err => {
         this.submitted = false;

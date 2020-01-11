@@ -33,7 +33,10 @@ export class NotesComponent implements OnInit {
             } as Note;
             this.notes.unshift(note);
           },
-          err => this.alert.showSnackbar(err.error)
+          err => {
+            console.error(err);
+            this.alert.showSnackbar(err.error);
+          }
         );
       }
     });
@@ -53,7 +56,10 @@ export class NotesComponent implements OnInit {
             note.title = updated.title;
             note.content = updated.content;
           },
-          err => this.alert.showSnackbar(err.error)
+          err => {
+            console.error(err);
+            this.alert.showSnackbar(err.error);
+          }
         );
       }
     });
@@ -66,7 +72,10 @@ export class NotesComponent implements OnInit {
     this.alert.showConfirmationDialog({ action, prompt, width }, () => {
       this.notesService.delete(note).subscribe(
         _ => this.notes.splice(this.notes.indexOf(note), 1),
-        err => this.alert.showSnackbar(err.error)
+        err => {
+          console.error(err);
+          this.alert.showSnackbar(err.error);
+        }
       );
     });
   }

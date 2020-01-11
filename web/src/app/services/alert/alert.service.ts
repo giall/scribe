@@ -22,7 +22,7 @@ export class AlertService {
   }
 
   showSnackbar(text: string) {
-    this.snackBar.open(text, 'Close', {
+    this.snackBar.open(text || 'An error occurred.', 'Close', {
       duration: 2000
     });
   }
