@@ -31,10 +31,9 @@ cd web
 npm run deploy
 ```
 
-Deploy the API to Firebase Functions:
+Deploy the API to Google Cloud Functions:
 ```
 cd api
 npm run build
 npm run deploy --prefix dist
 ```
-Note: This requires the Firebase CLI and a Firebase project to be set up.
